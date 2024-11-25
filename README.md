@@ -8,25 +8,25 @@ This project is a **Flutter-based mobile application** designed to provide an in
 ## 📸 Screenshots
 
 ### Home Screen (Turkish)
-[![Home Screen TR](./screenshots/home_tr.png)](https://files.oaiusercontent.com/file-M85Zsd6zj44c3GdMaYGA88?se=2024-11-25T13%3A13%3A38Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dimage.png&sig=RkvVYeJJuSf57GMaagqxmwMisr1/czoUqGUhVusnz%2BM%3D)
+![image](https://github.com/user-attachments/assets/2770141d-156d-42e1-b435-3a6b4909e670)
 
 ### Language Selector
-![Language Selector](./screenshots/language_selector.png)
+![image](https://github.com/user-attachments/assets/3e5cd6b9-32a4-4b5f-863c-0c1fbf9c8fac)
 
 ### Home Screen (English)
-![Home Screen EN](./screenshots/home_en.png)
+![image](https://github.com/user-attachments/assets/2b945bdd-e626-4872-a5a8-f061cf814c06)
 
 ### Login Screen
-![Login Screen](./screenshots/login.png)
+![image](https://github.com/user-attachments/assets/32a45225-1271-4ff6-ab2a-2407a921d4f3)
 
 ### Personnel Dashboard
-![Personnel Dashboard](./screenshots/personnel_dashboard.png)
+![image](https://github.com/user-attachments/assets/7f2491df-dd13-4504-996b-b68616405b7d)
 
 ### About Us Page
-![About Us](./screenshots/about_us.png)
+![image](https://github.com/user-attachments/assets/0dc15a05-3d58-4169-ac41-b0dcfb8fc69f)
 
 ### Products Page
-![Products Page](./screenshots/products_page.png)
+![image](https://github.com/user-attachments/assets/53c7dcf3-8c0f-4956-a0fb-2eba53a3558b)
 
 ---
 
@@ -76,20 +76,6 @@ This project is a **Flutter-based mobile application** designed to provide an in
 - **State Management**: Provider
 - **Localization**: `intl` package for multilingual support
 - **Backend (planned)**: Firebase integration for authentication and data management
-
----
-
-## 📂 Project Structure
-
-```plaintext
-lib/
-├── main.dart         # Entry point of the application
-├── pages/            # Application pages (Home, Login, About Us, etc.)
-├── widgets/          # Reusable UI components
-├── providers/        # State management providers
-├── app/              # Theme, localization, and global configuration
-└── generated/        # Auto-generated localization files
-```
 
 ---
 
