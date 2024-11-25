@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ServXFactory
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# ServXFactory
+>>>>>>> f1e929d69cf2c95a0bb00d63ca7cb854f3b73a0a
