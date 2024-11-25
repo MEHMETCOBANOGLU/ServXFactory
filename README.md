@@ -3,33 +3,48 @@
 
 This project is a **Flutter-based mobile application** designed to provide an innovative service platform for **industrial companies**. The application serves as a hub for managing various aspects of the business, including product information, service requests, and real-time communication between users and company personnel. It is currently **under development**.
 
----
-
 ## 📸 Screenshots
 
-### Home Screen (Turkish)
-![image](https://github.com/user-attachments/assets/2770141d-156d-42e1-b435-3a6b4909e670)
-
-### Language Selector
-![image](https://github.com/user-attachments/assets/3e5cd6b9-32a4-4b5f-863c-0c1fbf9c8fac)
-
-### Home Screen (English)
-![image](https://github.com/user-attachments/assets/2b945bdd-e626-4872-a5a8-f061cf814c06)
-
-### Login Screen
-![image](https://github.com/user-attachments/assets/32a45225-1271-4ff6-ab2a-2407a921d4f3)
-
-### Personnel Dashboard
-![image](https://github.com/user-attachments/assets/7f2491df-dd13-4504-996b-b68616405b7d)
-
-### About Us Page
-![image](https://github.com/user-attachments/assets/0dc15a05-3d58-4169-ac41-b0dcfb8fc69f)
-
-### Products Page
-![image](https://github.com/user-attachments/assets/53c7dcf3-8c0f-4956-a0fb-2eba53a3558b)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <strong>Home Screen (Turkish)</strong><br>
+        <img src="https://github.com/user-attachments/assets/2770141d-156d-42e1-b435-3a6b4909e670" alt="Home Screen Turkish" width="200">
+      </td>
+      <td align="center">
+        <strong>Language Selector</strong><br>
+        <img src="https://github.com/user-attachments/assets/3e5cd6b9-32a4-4b5f-863c-0c1fbf9c8fac" alt="Language Selector" width="200">
+      </td>
+      <td align="center">
+        <strong>Home Screen (English)</strong><br>
+        <img src="https://github.com/user-attachments/assets/2b945bdd-e626-4872-a5a8-f061cf814c06" alt="Home Screen English" width="200">
+      </td>
+      <td align="center">
+        <strong>Login Screen</strong><br>
+        <img src="https://github.com/user-attachments/assets/32a45225-1271-4ff6-ab2a-2407a921d4f3" alt="Login Screen" width="200">
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <strong>Personnel Dashboard</strong><br>
+        <img src="https://github.com/user-attachments/assets/7f2491df-dd13-4504-996b-b68616405b7d" alt="Personnel Dashboard" width="200">
+      </td>
+      <td align="center">
+        <strong>About Us Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/0dc15a05-3d58-4169-ac41-b0dcfb8fc69f" alt="About Us Page" width="200">
+      </td>
+      <td align="center">
+        <strong>Products Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/53c7dcf3-8c0f-4956-a0fb-2eba53a3558b" alt="Products Page" width="200">
+      </td>
+    </tr>
+    <tr>
+    </tr>
+  </table>
+</div>
 
 ---
-
 ## 🎯 Features
 
 ### Current Features:
