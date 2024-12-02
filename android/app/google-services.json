@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "290685477286",
+    "project_id": "servxfactory",
+    "storage_bucket": "servxfactory.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290685477286:android:ddab2b4bf70b698e84ef67",
+        "android_client_info": {
+          "package_name": "com.example.ServXFactory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbKYjE2JFa_f9irR1nS5_yaSYZfFnEOJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

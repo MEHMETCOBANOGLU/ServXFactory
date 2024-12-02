@@ -3,18 +3,23 @@ import 'package:provider/provider.dart';
 import 'package:ServXFactory/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ServXFactory/providers/locale_provider.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'app/theme.dart';
 import 'pages/homePage.dart';
 
-void main() => runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => LocaleProvider()),
-        ],
-        child: const MyApp(),
-      ),
-    );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LocaleProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
