@@ -20,12 +20,13 @@ class AppTheme extends ChangeNotifier {
           surface: Color(0xFF262554), //6358f6
           onPrimary: Color.fromARGB(255, 89, 88, 155), //6358f6
           // surface: Color(0xFF3b368c),
-          onSurface: Color(0xFF414A4C),
-          error: Color(0xFF414A4C),
+          // onSurface: Color(0xFF414A4C),
+          onSurface: Colors.white,
+          error: Color(0xFFf17907),
         ),
         iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
-            foregroundColor: Color(0xFF3b368c),
+            foregroundColor: const Color(0xFF3b368c),
           ),
         ),
       );

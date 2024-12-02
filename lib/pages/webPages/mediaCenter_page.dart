@@ -3,6 +3,8 @@ import 'package:ServXFactory/app/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MediaCenterPage extends StatefulWidget {
+  const MediaCenterPage({super.key});
+
   @override
   _MediaCenterPageState createState() => _MediaCenterPageState();
 }
@@ -63,7 +65,7 @@ class _MediaCenterPageState extends State<MediaCenterPage> {
       length: 2, // Tab sayısı
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             "Medya Merkezi",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -72,15 +74,15 @@ class _MediaCenterPageState extends State<MediaCenterPage> {
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white,
-            tabs: const [
-              Tooltip(
+            tabs: [
+              const Tooltip(
                 message: "Foto Galeri",
                 child: Tab(
                   icon: Icon(Icons.home),
                   text: "Foto Galeri",
                 ),
               ),
-              Tooltip(
+              const Tooltip(
                 message: "Video Galeri",
                 child: Tab(
                   icon: Icon(Icons.info),
@@ -105,7 +107,7 @@ class _MediaCenterPageState extends State<MediaCenterPage> {
       children: [
         WebViewWidget(controller: controller),
         if (isLoading)
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
           ),
       ],

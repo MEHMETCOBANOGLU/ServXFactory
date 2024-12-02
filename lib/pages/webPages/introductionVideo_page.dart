@@ -78,7 +78,7 @@ class _IntroVideoPageState extends State<IntroVideoPage> {
             if (!_isVideoPlaying)
               Positioned(
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.play_circle,
                     color: Colors.white,
                     size: 60.0,
@@ -93,7 +93,7 @@ class _IntroVideoPageState extends State<IntroVideoPage> {
                 top: 20,
                 right: 20,
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.close,
                     color: Colors.white,
                     size: 30.0,

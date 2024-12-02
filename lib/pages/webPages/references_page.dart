@@ -3,6 +3,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ReferencesPage extends StatefulWidget {
+  const ReferencesPage({super.key});
+
   @override
   _ReferencesPageState createState() => _ReferencesPageState();
 }
@@ -48,8 +50,8 @@ class _ReferencesPageState extends State<ReferencesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text(
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
           "Referanslar",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -58,7 +60,8 @@ class _ReferencesPageState extends State<ReferencesPage> {
           ? Stack(
               children: [
                 WebViewWidget(controller: _controller),
-                if (isLoadingPage) Center(child: CircularProgressIndicator()),
+                if (isLoadingPage)
+                  const Center(child: CircularProgressIndicator()),
               ],
             )
           : _noInternetWidget(), // İnternet yoksa özel bir widget göster
@@ -70,18 +73,18 @@ class _ReferencesPageState extends State<ReferencesPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.wifi_off, size: 100, color: Colors.red),
-          SizedBox(height: 16),
-          Text(
+          const Icon(Icons.wifi_off, size: 100, color: Colors.red),
+          const SizedBox(height: 16),
+          const Text(
             "İnternet bağlantısı yok",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {
               _checkInternetConnection(); // Tekrar deneme
             },
-            child: Text("Tekrar Dene"),
+            child: const Text("Tekrar Dene"),
           ),
         ],
       ),

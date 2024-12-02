@@ -60,12 +60,12 @@ class _HomePageState extends State<HomePage> {
                     width: 24,
                     height: 24,
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Text(
                     _selectedLanguage,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  Icon(Icons.arrow_drop_down, color: Colors.white),
+                  const Icon(Icons.arrow_drop_down, color: Colors.white),
                 ],
               ),
               itemBuilder: (BuildContext context) {
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                             width: 24,
                             height: 24,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(lang['code']!),
                         ],
                       ),
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
               width: 250,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: GridIcons(
               context,
@@ -170,8 +170,8 @@ Widget AccountLoginCard(String text, IconData icon, String loginType,
           ),
         ],
         borderRadius: text == S.of(context).UserLogin
-            ? BorderRadius.horizontal(right: Radius.circular(18))
-            : BorderRadius.horizontal(left: Radius.circular(18)),
+            ? const BorderRadius.horizontal(right: Radius.circular(18))
+            : const BorderRadius.horizontal(left: Radius.circular(18)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

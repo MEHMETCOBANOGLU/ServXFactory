@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
+  const MapPage({super.key});
+
   @override
   _MapPageState createState() => _MapPageState();
 }
@@ -9,7 +11,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   late GoogleMapController _mapController;
   final LatLng _initialPosition =
-      LatLng(41.015137, 28.979530); // İstanbul koordinatları
+      const LatLng(41.015137, 28.979530); // İstanbul koordinatları
   final Set<Marker> _markers = {};
 
   void _onMapCreated(GoogleMapController controller) {
@@ -36,8 +38,8 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text(
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
           "Harita",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -62,8 +64,8 @@ class _MapPageState extends State<MapPage> {
                   CameraUpdate.newLatLngZoom(_initialPosition, 14),
                 );
               },
-              label: Text("KSP Makine'ye Git"),
-              icon: Icon(Icons.location_on),
+              label: const Text("KSP Makine'ye Git"),
+              icon: const Icon(Icons.location_on),
             ),
           ),
         ],

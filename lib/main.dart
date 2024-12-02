@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         locale: value.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: HomePage(),
+        home: const HomePage(),
       );
     });
   }

@@ -26,7 +26,7 @@ class _UserPageState extends State<UserPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 100,
                     width: double.infinity,
                     child: const Center(

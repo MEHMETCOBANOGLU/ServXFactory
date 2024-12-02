@@ -38,13 +38,13 @@ class GridIcons extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: 1,
             mainAxisSpacing: 35,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             children: [
               if (homePage == true) ...[
                 GridPageIcons(Icons.info, S.of(context).AboutUs, AboutUsPage(),
                     homePage, context),
                 GridPageIcons(Icons.slideshow, S.of(context).IntroductionVideo,
-                    IntroVideoPage(), homePage, context),
+                    const IntroVideoPage(), homePage, context),
                 GridPageIcons(Icons.shopping_bag, S.of(context).Products,
                     ProductsPage(), homePage, context),
                 GridPageIcons(Icons.support, S.of(context).ErrorSupportSystem,
@@ -69,7 +69,7 @@ class GridIcons extends StatelessWidget {
               crossAxisCount: 3,
               crossAxisSpacing: 1,
               mainAxisSpacing: 35,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               children: [
                 if (homePage == true)
                   GridPageIcons(Icons.map, S.of(context).KspMap, MapPage(),
@@ -127,8 +127,8 @@ Column GridPageIcons(
               homePage ? AppTheme.lightTheme.colorScheme.primary : Colors.white,
         ),
       ),
-      SizedBox(height: 5),
-      Container(
+      const SizedBox(height: 5),
+      SizedBox(
         width: 80, // Maximum width for text
         child: Text(
           text,

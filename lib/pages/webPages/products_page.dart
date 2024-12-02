@@ -3,6 +3,8 @@ import 'package:ServXFactory/app/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ProductsPage extends StatefulWidget {
+  const ProductsPage({super.key});
+
   @override
   _ProductsPageState createState() => _ProductsPageState();
 }
@@ -86,7 +88,7 @@ class _ProductsPageState extends State<ProductsPage> {
       length: 3, // Tab sayısı
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             "Ürünler",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -95,22 +97,22 @@ class _ProductsPageState extends State<ProductsPage> {
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white,
-            tabs: const [
-              Tooltip(
+            tabs: [
+              const Tooltip(
                 message: "Endüstriyel Parça Yıkama",
                 child: Tab(
                   icon: Icon(Icons.home),
                   text: "Endüstriyel Parça Yıkama",
                 ),
               ),
-              Tooltip(
+              const Tooltip(
                 message: "Taşlama Makineleri",
                 child: Tab(
                   icon: Icon(Icons.info),
                   text: "Taşlama Makineleri",
                 ),
               ),
-              Tooltip(
+              const Tooltip(
                 message: "Test Ekipmanları",
                 child: Tab(
                   icon: Icon(Icons.info),
@@ -136,7 +138,7 @@ class _ProductsPageState extends State<ProductsPage> {
       children: [
         WebViewWidget(controller: controller),
         if (isLoading)
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
           ),
       ],

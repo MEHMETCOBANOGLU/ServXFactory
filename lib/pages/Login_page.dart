@@ -1,3 +1,5 @@
+import 'package:ServXFactory/pages/signUP_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,6 +20,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _selectedLanguage = 'TR';
+
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
 
   final List<Map<String, String>> languages = [
     {'code': 'TR', 'flag': 'assets/flags/tr.png'},
@@ -62,12 +69,12 @@ class _LoginPageState extends State<LoginPage> {
                     width: 24,
                     height: 24,
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Text(
                     _selectedLanguage,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  Icon(Icons.arrow_drop_down, color: Colors.white),
+                  const Icon(Icons.arrow_drop_down, color: Colors.white),
                 ],
               ),
               itemBuilder: (BuildContext context) {
@@ -82,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: 24,
                             height: 24,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(lang['code']!),
                         ],
                       ),
@@ -100,43 +107,51 @@ class _LoginPageState extends State<LoginPage> {
           // Kaydırılabilir içerik
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 20, bottom: 20, top: 120),
-                    child: Image.asset(
-                      'assets/images/logoKsp.png',
-                      width: 250,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 20, bottom: 20, top: 120),
+                      child: Image.asset(
+                        'assets/images/logoKsp.png',
+                        width: 250,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 70),
-                  _TextField('Email', Icons.email_outlined),
-                  const SizedBox(height: 20),
-                  _TextField('Şifre', Icons.lock_outline),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 50.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Şifreni mi unuttun?',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            )),
-                      ],
+                    const SizedBox(height: 70),
+                    _TextField('Email', Icons.email_outlined, _emailcontroller),
+                    const SizedBox(height: 20),
+                    _TextField(
+                        'Şifre', Icons.lock_outline, _passwordController),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                print(_passwordController.text);
+                                print(_emailcontroller.text);
+                              },
+                              child: const Text(
+                                'Şifreni mi unuttun?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  AccountLoginCard('Giriş Yap', widget.loginType,
-                      context: context),
-                  SizedBox(height: 20),
-                ],
+                    const SizedBox(height: 20),
+                    AccountLoginCard('Giriş Yap', widget.loginType,
+                        _emailcontroller, _passwordController, _auth, _formKey,
+                        context: context),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ),
@@ -152,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
             child: RichText(
               text: TextSpan(
                 text: 'Hesabın yok mu? ',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: const TextStyle(color: Colors.white, fontSize: 16),
                 children: [
                   TextSpan(
                     text: '  Kayıt Ol',
@@ -162,6 +177,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SignUpScreen(loginType: widget.loginType),
+                          ),
+                        );
+
                         print("  Kayıt Ol clicked");
                       },
                   ),
@@ -174,10 +197,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Padding _TextField(text, icon) {
+  _TextField(text, icon, controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
+        validator: controller == _emailcontroller
+            ? (value) {
+                if (value == null || value.isEmpty || !value.contains('@')) {
+                  return 'Geçerli bir e-posta adresi giriniz.';
+                }
+                return null;
+              }
+            : (value) {
+                if (value == null || value.isEmpty || value.length < 8) {
+                  return 'Şifre en az 8 karakter olmalı.';
+                }
+                return null;
+              },
+        obscureText: controller == _passwordController ? true : false,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           prefixIconColor: AppTheme.lightTheme.colorScheme.primary,
@@ -191,11 +229,10 @@ class _LoginPageState extends State<LoginPage> {
           filled: true,
           fillColor: AppTheme.lightTheme.colorScheme.onPrimary,
           hintText: text,
-          hintStyle: TextStyle(color: Colors.white60),
+          hintStyle: const TextStyle(color: Colors.white60),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
-              // color: AppTheme.lightTheme.colorScheme.secondary,
               color: AppTheme.lightTheme.colorScheme.primary,
               width: 2,
             ),
@@ -206,40 +243,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-Widget AccountLoginCard(String text, String loginType,
+Widget AccountLoginCard(
+    String text,
+    String loginType,
+    TextEditingController emailcontroller,
+    TextEditingController passwordcontroller,
+    FirebaseAuth auth,
+    GlobalKey<FormState> formKey,
     {required BuildContext context}) {
   return InkWell(
-    onTap: () {
-      print(loginType);
-
-      loginType == 'User'
-          ? Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserPage()))
-          : Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PersonnelPage()));
+    onTap: () async {
+      if (formKey.currentState?.validate() ?? false) {
+        try {
+          final userCredential = await auth.signInWithEmailAndPassword(
+            email: emailcontroller.text,
+            password: passwordcontroller.text,
+          );
+          if (userCredential.user!.emailVerified) {
+            print('Giriş başarılı!');
+            Navigator.pushReplacementNamed(context, '/home');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Lütfen e-posta adresinizi doğrulayın.')),
+            );
+          }
+        } on FirebaseAuthException catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Hata: ${e.message}')),
+          );
+        }
+      }
     },
     child: Container(
-      width: 180, // Genişlik sabit
+      width: 180, // Sabit genişlik
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft,
-            colors: [
-              AppTheme.lightTheme.colorScheme.secondary,
-              AppTheme.lightTheme.colorScheme.primary,
-            ],
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 15,
-              offset: Offset(5, 5),
-            ),
+        gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [
+            AppTheme.lightTheme.colorScheme.secondary,
+            AppTheme.lightTheme.colorScheme.primary,
           ],
-          borderRadius: BorderRadius.all(Radius.circular(30))),
+        ),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 15,
+            offset: Offset(5, 5),
+          ),
+        ],
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
+      ),
       child: Column(
-        mainAxisSize: MainAxisSize.min, // Height is determined by the contents
+        mainAxisSize:
+            MainAxisSize.min, // İçerik yüksekliği içeriğe göre belirlenir
         children: [
           Text(
             text,
@@ -249,8 +307,8 @@ Widget AccountLoginCard(String text, String loginType,
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
-            softWrap: true, // Allow the text to wrap to the next line
-            overflow: TextOverflow.visible, // Make the overflow visible
+            softWrap: true, // Text'in bir sonraki satıra geçmesine izin verir
+            overflow: TextOverflow.visible, // Overflowu gösterir
           ),
         ],
       ),
