@@ -1,4 +1,6 @@
 import 'package:ServXFactory/app/theme.dart';
+import 'package:ServXFactory/models/userModel.dart';
+import 'package:ServXFactory/services/database_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +23,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String email = '';
   String password = '';
   String confirmPassword = '';
+  String name = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _databaseService = DatabaseService();
 
   // Toggle buttons için kullanılan index
   int _selectedIndex = 0;
@@ -29,10 +33,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _register() async {
     if (_formKey.currentState!.validate()) {
       try {
+        // Kullanıcıyı Authentication ile kaydet
         final userCredential = await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
+
+        // Firestore'a ekle
+        final user = UserModel(
+          id: userCredential.user!.uid,
+          name: name,
+          email: email,
+          role: widget.loginType, // Admin veya Personnel
+        );
+
+        await _databaseService.addUser(user);
+
+        // Kullanıcıya e-posta doğrulama gönder
         await userCredential.user!.sendEmailVerification();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -237,10 +254,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 20),
                         InkWell(
-                          // onTap: _register,
-                          onTap: () {
-                            print(widget.loginType);
-                          },
+                          onTap: _register,
+                          // onTap: () {
+                          //   print(widget.loginType);
+                          // },
                           child: Container(
                             width: 120,
                             padding: const EdgeInsets.symmetric(
