@@ -1,5 +1,6 @@
 import 'package:ServXFactory/pages/signUP_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
+import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,36 @@ class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseService _databaseService = DatabaseService();
   final _formKey = GlobalKey<FormState>();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  List<String> _filteredEmails = [];
+  bool _isFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode.addListener(() {
+      setState(() {
+        _isFocus = _emailFocusNode.hasFocus;
+      });
+    });
+  }
+
+  // E-posta girildiğinde, listeyi filtrele
+  void _filterEmails(String query) async {
+    List<String> previousEmails = await EmailSuggestion.loadEmails();
+    setState(() {
+      _filteredEmails = EmailSuggestion.filterEmails(query, previousEmails);
+    });
+  }
+
+  // TextField odakta olduğunda tüm önceki e-postaları göster
+  void _showAllEmails() async {
+    List<String> previousEmails = await EmailSuggestion.loadEmails();
+    setState(() {
+      _filteredEmails = previousEmails;
+    });
+  }
 
   final List<Map<String, String>> languages = [
     {'code': 'TR', 'flag': 'assets/flags/tr.png'},
@@ -124,10 +155,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 70),
-                    _TextField('Email', Icons.email_outlined, _emailcontroller),
+                    _TextField('Email', Icons.email_outlined, _emailcontroller,
+                        _emailFocusNode),
                     const SizedBox(height: 20),
-                    _TextField(
-                        'Şifre', Icons.lock_outline, _passwordController),
+                    _TextField('Şifre', Icons.lock_outline, _passwordController,
+                        _passwordFocusNode),
                     Padding(
                       padding: const EdgeInsets.only(right: 50.0),
                       child: Row(
@@ -205,47 +237,92 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _TextField(text, icon, controller) {
+  _TextField(text, icon, controller, focusNode) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: TextFormField(
-        controller: controller,
-        validator: controller == _emailcontroller
-            ? (value) {
-                if (value == null || value.isEmpty || !value.contains('@')) {
-                  return 'Geçerli bir e-posta adresi giriniz.';
-                }
-                return null;
-              }
-            : (value) {
-                if (value == null || value.isEmpty || value.length < 8) {
-                  return 'Şifre en az 8 karakter olmalı.';
-                }
-                return null;
-              },
-        obscureText: controller == _passwordController ? true : false,
-        decoration: InputDecoration(
-          prefixIcon: Icon(icon),
-          prefixIconColor: AppTheme.lightTheme.colorScheme.primary,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-              color: AppTheme.lightTheme.colorScheme.primary,
-              width: 2,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: controller,
+            focusNode: focusNode,
+            onChanged: (value) {
+              _filterEmails(value); // E-posta girildikçe önerileri filtrele
+            },
+            onTap:
+                _showAllEmails, // Odaklandığında tüm e-posta adreslerini göster
+            onEditingComplete: () {
+              String email =
+                  controller.text; // Controller'dan e-posta değerini al
+              print("onEditingComplete tetiklendi. E-posta: $email");
+              EmailSuggestion.saveEmail(email); // E-posta girildiğinde kaydet
+            },
+            validator: controller == _emailcontroller
+                ? (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !value.contains('@')) {
+                      return 'Geçerli bir e-posta adresi giriniz.';
+                    }
+                    return null;
+                  }
+                : (value) {
+                    if (value == null || value.isEmpty || value.length < 8) {
+                      return 'Şifre en az 8 karakter olmalı.';
+                    }
+                    return null;
+                  },
+            obscureText: controller == _passwordController ? true : false,
+            decoration: InputDecoration(
+              prefixIcon: Icon(icon),
+              prefixIconColor: AppTheme.lightTheme.colorScheme.primary,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide(
+                  color: AppTheme.lightTheme.colorScheme.primary,
+                  width: 2,
+                ),
+              ),
+              filled: true,
+              fillColor: AppTheme.lightTheme.colorScheme.onPrimary,
+              hintText: text,
+              hintStyle: const TextStyle(color: Colors.white60),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide(
+                  color: AppTheme.lightTheme.colorScheme.primary,
+                  width: 2,
+                ),
+              ),
             ),
           ),
-          filled: true,
-          fillColor: AppTheme.lightTheme.colorScheme.onPrimary,
-          hintText: text,
-          hintStyle: const TextStyle(color: Colors.white60),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-              color: AppTheme.lightTheme.colorScheme.primary,
-              width: 2,
+          if (_isFocus &&
+              _filteredEmails.isNotEmpty &&
+              controller == _emailcontroller)
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey),
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _filteredEmails.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_filteredEmails[index]),
+                    onTap: () {
+                      controller.text = _filteredEmails[index];
+                      setState(() {
+                        _filteredEmails =
+                            []; // Seçildikten sonra listeyi temizle
+                      });
+                      focusNode.unfocus(); // Focus'u kaybettir
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ),
+        ],
       ),
     );
   }

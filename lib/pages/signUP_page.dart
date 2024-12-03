@@ -1,5 +1,6 @@
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/models/userModel.dart';
+import 'package:ServXFactory/pages/Login_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SnackBar(
               content: Text('Aktivasyon için e-postanızı kontrol edin.')),
         );
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LoginPage(
+                      loginType: widget.loginType,
+                    )));
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Hata: ${e.message}')),
