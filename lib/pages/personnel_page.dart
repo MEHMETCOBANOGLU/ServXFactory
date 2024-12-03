@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:ServXFactory/models/userModel.dart';
 import 'package:ServXFactory/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/utilities/GridIcons_wiev.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonnelPage extends StatefulWidget {
   const PersonnelPage({super.key});
@@ -116,14 +119,14 @@ class _PersonnelPageState extends State<PersonnelPage> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              underprofileIcons(
-                                  FontAwesomeIcons.home, const HomePage(),
+                              underprofileIcons(FontAwesomeIcons.home,
+                                  const HomePage(), false,
                                   context: context),
                               underprofileIcons(FontAwesomeIcons.solidBell,
-                                  const PersonnelPage(),
+                                  const PersonnelPage(), false,
                                   context: context),
                               underprofileIcons(FontAwesomeIcons.signOutAlt,
-                                  const PersonnelPage(),
+                                  const PersonnelPage(), true,
                                   context: context),
                             ]),
                       )
@@ -144,11 +147,21 @@ class _PersonnelPageState extends State<PersonnelPage> {
   }
 }
 
-Widget underprofileIcons(icon, Widget route, {required BuildContext context}) {
+Widget underprofileIcons(icon, Widget route, bool logout,
+    {required BuildContext context}) {
   return InkWell(
-    onTap: () {
-      print('object');
-      Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+    onTap: () async {
+      print('deneme: $logout');
+      if (logout == true) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('email'); // Email'i temizle
+        await prefs.setBool('isLoggedIn', false); // Giriş durumunu false yap
+        Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+      } else {
+        print('object');
+        print('deneme: $logout');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+      }
     },
     child: Container(
       decoration: BoxDecoration(

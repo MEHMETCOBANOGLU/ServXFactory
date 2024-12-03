@@ -11,6 +11,7 @@ import 'package:ServXFactory/generated/l10n.dart';
 import 'package:ServXFactory/pages/personnel_page.dart';
 import 'package:ServXFactory/pages/user_page.dart';
 import 'package:ServXFactory/providers/locale_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final String loginType;
@@ -348,9 +349,16 @@ Widget AccountLoginCard(
           if (userCredential.user!.emailVerified) {
             print('Giriş başarılı!');
 
-            // Kullanıcı giriş yaptıysa, Firestore'dan bilgilerini al
             final user = userCredential.user;
             if (user != null) {
+              // SharedPreferences ile kullanıcı giriş bilgilerini kaydetme
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString(
+                  'email', userCredential.user!.email!); // Email kaydediliyor
+              await prefs.setBool('isLoggedIn',
+                  true); // Kullanıcının giriş yapıp yapmadığını kontrol et
+
+              // Kullanıcı giriş yaptıysa, Firestore'dan bilgilerini al
               final userModel = await databaseService.getUser(user.uid);
               if (userModel != null) {
                 // Kullanıcı bilgilerini aldıktan sonra istediğiniz işlemi yapabilirsiniz

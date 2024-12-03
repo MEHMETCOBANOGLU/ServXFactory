@@ -1,3 +1,7 @@
+import 'package:ServXFactory/pages/personnel_page.dart';
+import 'package:ServXFactory/pages/user_page.dart';
+import 'package:ServXFactory/services/database_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +10,7 @@ import 'package:ServXFactory/generated/l10n.dart';
 import 'package:ServXFactory/pages/Login_page.dart';
 import 'package:ServXFactory/pages/utilities/GridIcons_wiev.dart';
 import 'package:ServXFactory/providers/locale_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   String _selectedLanguage = 'TR';
+  final DatabaseService _databaseService = DatabaseService();
 
   final List<Map<String, String>> languages = [
     {'code': 'TR', 'flag': 'assets/flags/tr.png'},
@@ -26,6 +32,40 @@ class _HomePageState extends State<HomePage> {
     {'code': 'FR', 'flag': 'assets/flags/fr.png'},
     {'code': 'ES', 'flag': 'assets/flags/es.png'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _checkLoginStatus(String loginType) async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false; // Giriş durumu
+    String email = prefs.getString('email') ?? ''; // Kullanıcı email'i
+
+    final user = FirebaseAuth.instance.currentUser;
+    if (isLoggedIn && email.isNotEmpty && user != null) {
+      // Kullanıcı giriş yaptıysa, ana sayfaya yönlendirelim
+
+      final userModel = await _databaseService.getUser(user.uid);
+      if (userModel!.role == 'User' && loginType == 'User') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UserPage()));
+      } else if ((userModel.role == 'Personnel' || userModel.role == 'Admin') &&
+          (loginType == 'Personnel' || loginType == 'Admin')) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PersonnelPage()));
+      } else {
+        print('buradasın');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(loginType: loginType),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +161,10 @@ class _HomePageState extends State<HomePage> {
               children: [
                 AccountLoginCard(
                     S.of(context).UserLogin, FontAwesomeIcons.userTie, "User",
-                    context: context),
+                    onTap: () => _checkLoginStatus('User'), context: context),
                 AccountLoginCard(S.of(context).PersonnelLogin,
                     FontAwesomeIcons.userGear, "Personnel",
+                    onTap: () => _checkLoginStatus("Personnel"),
                     context: context),
               ],
             ),
@@ -136,15 +177,10 @@ class _HomePageState extends State<HomePage> {
 
 // Kullanıcı Girişi Butonunu Metod Olarak Tanımlama
 Widget AccountLoginCard(String text, IconData icon, String loginType,
-    {required BuildContext context}) {
+    {required BuildContext context, required VoidCallback onTap}) {
   return InkWell(
     onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(loginType: loginType),
-        ),
-      );
+      onTap();
     },
     child: Container(
       width: 180,
