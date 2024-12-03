@@ -1,4 +1,5 @@
 import 'package:ServXFactory/pages/signUP_page.dart';
+import 'package:ServXFactory/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _databaseService = DatabaseService();
   final _formKey = GlobalKey<FormState>();
 
   final List<Map<String, String>> languages = [
@@ -146,8 +148,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    AccountLoginCard('Giriş Yap', widget.loginType,
-                        _emailcontroller, _passwordController, _auth, _formKey,
+                    AccountLoginCard(
+                        'Giriş Yap',
+                        widget.loginType,
+                        _emailcontroller,
+                        _passwordController,
+                        _auth,
+                        _formKey,
+                        _databaseService,
                         context: context),
                     const SizedBox(height: 20),
                   ],
@@ -250,6 +258,7 @@ Widget AccountLoginCard(
     TextEditingController passwordcontroller,
     FirebaseAuth auth,
     GlobalKey<FormState> formKey,
+    DatabaseService databaseService,
     {required BuildContext context}) {
   return InkWell(
     onTap: () async {
@@ -261,11 +270,39 @@ Widget AccountLoginCard(
           );
           if (userCredential.user!.emailVerified) {
             print('Giriş başarılı!');
-            Navigator.pushReplacementNamed(context, '/home');
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Lütfen e-posta adresinizi doğrulayın.')),
-            );
+
+            // Kullanıcı giriş yaptıysa, Firestore'dan bilgilerini al
+            final user = userCredential.user;
+            if (user != null) {
+              final userModel = await databaseService.getUser(user.uid);
+              if (userModel != null) {
+                // Kullanıcı bilgilerini aldıktan sonra istediğiniz işlemi yapabilirsiniz
+                print('Kullanıcı Adı: ${userModel.name}');
+                print('Kullanıcı Rolü: ${userModel.role}');
+
+                print(loginType);
+                if (loginType == 'User' && userModel.role == 'User') {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserPage()));
+                } else if ((loginType == 'Personnel' || loginType == 'Admin') &&
+                    (userModel.role == 'Personnel' ||
+                        userModel.role == 'Admin')) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PersonnelPage()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            'Lütfen kullanıcı giriş sayfasından giriş yapınız. Personel ve Yönetici yetkilileri bu sayfadan giriş yapabilir.')),
+                  );
+                }
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text('Lütfen e-posta adresinizi doğrulayın.')),
+                );
+              }
+            }
           }
         } on FirebaseAuthException catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
