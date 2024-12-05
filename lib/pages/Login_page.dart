@@ -1,3 +1,5 @@
+import 'package:ServXFactory/pages/forgotPass_page.dart';
+import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/signUP_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
 import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
@@ -71,169 +73,183 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: PopupMenuButton<String>(
-              color: AppTheme.lightTheme.colorScheme.secondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              offset: const Offset(0, 35),
-              elevation: 10,
-              padding: EdgeInsets.zero,
-              menuPadding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 0, maxWidth: 80),
-              onSelected: (String value) {
-                setState(() {
-                  _selectedLanguage = value;
-                });
-                context
-                    .read<LocaleProvider>()
-                    .setLocale(Locale(value.toLowerCase()));
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    languages.firstWhere(
-                        (lang) => lang['code'] == _selectedLanguage)['flag']!,
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    _selectedLanguage,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  const Icon(Icons.arrow_drop_down, color: Colors.white),
-                ],
-              ),
-              itemBuilder: (BuildContext context) {
-                return languages.map((lang) {
-                  return PopupMenuItem<String>(
-                    value: lang['code']!,
-                    child: MouseRegion(
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            lang['flag']!,
-                            width: 24,
-                            height: 24,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(lang['code']!),
-                        ],
-                      ),
-                    ),
-                  );
-                }).toList();
-              },
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: AppTheme.lightTheme.colorScheme.surface,
-      body: Column(
-        children: [
-          // Kaydırılabilir içerik
-          Expanded(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+    return WillPopScope(
+      onWillPop: () async {
+        // Kullanıcı geri tuşuna veya kaydırma hareketine bastığında çalışacak
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+        return false; // Varsayılan geri navigasyonu engelle
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PopupMenuButton<String>(
+                color: AppTheme.lightTheme.colorScheme.secondary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                offset: const Offset(0, 35),
+                elevation: 10,
+                padding: EdgeInsets.zero,
+                menuPadding: EdgeInsets.zero,
+                constraints: const BoxConstraints(minWidth: 0, maxWidth: 80),
+                onSelected: (String value) {
+                  setState(() {
+                    _selectedLanguage = value;
+                  });
+                  context
+                      .read<LocaleProvider>()
+                      .setLocale(Locale(value.toLowerCase()));
+                },
+                child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20, bottom: 20, top: 120),
-                      child: Image.asset(
-                        'assets/images/logoKsp.png',
-                        width: 250,
-                      ),
+                    Image.asset(
+                      languages.firstWhere(
+                          (lang) => lang['code'] == _selectedLanguage)['flag']!,
+                      width: 24,
+                      height: 24,
                     ),
-                    const SizedBox(height: 70),
-                    _TextField('Email', Icons.email_outlined, _emailcontroller,
-                        _emailFocusNode),
-                    const SizedBox(height: 20),
-                    _TextField('Şifre', Icons.lock_outline, _passwordController,
-                        _passwordFocusNode),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 50.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                print(_passwordController.text);
-                                print(_emailcontroller.text);
-                              },
-                              child: const Text(
-                                'Şifreni mi unuttun?',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )),
-                        ],
-                      ),
+                    const SizedBox(width: 5),
+                    Text(
+                      _selectedLanguage,
+                      style: const TextStyle(color: Colors.white),
                     ),
-                    const SizedBox(height: 20),
-                    AccountLoginCard(
-                        'Giriş Yap',
-                        widget.loginType,
-                        _emailcontroller,
-                        _passwordController,
-                        _auth,
-                        _formKey,
-                        _databaseService,
-                        context: context),
-                    const SizedBox(height: 20),
+                    const Icon(Icons.arrow_drop_down, color: Colors.white),
                   ],
+                ),
+                itemBuilder: (BuildContext context) {
+                  return languages.map((lang) {
+                    return PopupMenuItem<String>(
+                      value: lang['code']!,
+                      child: MouseRegion(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              lang['flag']!,
+                              width: 24,
+                              height: 24,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(lang['code']!),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppTheme.lightTheme.colorScheme.surface,
+        body: Column(
+          children: [
+            // Kaydırılabilir içerik
+            Expanded(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20, bottom: 20, top: 120),
+                        child: Image.asset(
+                          'assets/images/logoKsp.png',
+                          width: 250,
+                        ),
+                      ),
+                      const SizedBox(height: 70),
+                      _TextField('Email', Icons.email_outlined,
+                          _emailcontroller, _emailFocusNode),
+                      const SizedBox(height: 20),
+                      _TextField('Şifre', Icons.lock_outline,
+                          _passwordController, _passwordFocusNode),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 50.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPasswordPage(),
+                                      ));
+                                },
+                                child: const Text(
+                                  'Şifreni mi unuttun?',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      AccountLoginCard(
+                          'Giriş Yap',
+                          widget.loginType,
+                          _emailcontroller,
+                          _passwordController,
+                          _auth,
+                          _formKey,
+                          _databaseService,
+                          context: context),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          // Divider ve RichText sabit içerik
-          const Divider(
-            color: Colors.white54,
-            thickness: 1,
-            indent: 60,
-            endIndent: 60,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
-            child: RichText(
-              text: TextSpan(
-                text: 'Hesabın yok mu? ',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                children: [
-                  TextSpan(
-                    text: '  Kayıt Ol',
-                    style: TextStyle(
-                      color: AppTheme.lightTheme.colorScheme.secondary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                SignUpScreen(loginType: widget.loginType),
-                          ),
-                        );
-
-                        print("  Kayıt Ol clicked");
-                      },
-                  ),
-                ],
-              ),
+            // Divider ve RichText sabit içerik
+            const Divider(
+              color: Colors.white54,
+              thickness: 1,
+              indent: 60,
+              endIndent: 60,
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Hesabın yok mu? ',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  children: [
+                    TextSpan(
+                      text: '  Kayıt Ol',
+                      style: TextStyle(
+                        color: AppTheme.lightTheme.colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  SignUpScreen(loginType: widget.loginType),
+                            ),
+                          );
+
+                          print("  Kayıt Ol clicked");
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -346,9 +362,9 @@ Widget AccountLoginCard(
             email: emailcontroller.text,
             password: passwordcontroller.text,
           );
-          if (userCredential.user!.emailVerified) {
-            print('Giriş başarılı!');
 
+          // if (userCredential.user!.emailVerified) { // şimdlik email doğrulamayı devre dışı bırakıyorum açarsın sonra
+          if (true) {
             final user = userCredential.user;
             if (user != null) {
               // SharedPreferences ile kullanıcı giriş bilgilerini kaydetme
@@ -388,6 +404,10 @@ Widget AccountLoginCard(
                 );
               }
             }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Lütfen e-posta adresinizi doğrulayın.')),
+            );
           }
         } on FirebaseAuthException catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(

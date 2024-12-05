@@ -42,9 +42,11 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false; // Giriş durumu
     String email = prefs.getString('email') ?? ''; // Kullanıcı email'i
+    print('içerdema2');
 
     final user = FirebaseAuth.instance.currentUser;
     if (isLoggedIn && email.isNotEmpty && user != null) {
+      print('içerdema');
       // Kullanıcı giriş yaptıysa, ana sayfaya yönlendirelim
 
       final userModel = await _databaseService.getUser(user.uid);
@@ -64,6 +66,14 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       }
+    } else {
+      print('buradasın');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(loginType: loginType),
+        ),
+      );
     }
   }
 

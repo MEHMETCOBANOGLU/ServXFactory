@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:ServXFactory/models/userModel.dart';
+import 'package:ServXFactory/pages/Login_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,13 +62,16 @@ class _PersonnelPageState extends State<PersonnelPage> {
                             child: Column(
                               children: [
                                 // null kontrolü ekledik
-                                Text(
-                                  userModel!.id.isNotEmpty
-                                      ? userModel!.id
-                                      : 'ID bulunamadı',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                Tooltip(
+                                  message: 'Kullanıcı ID',
+                                  child: Text(
+                                    userModel!.id.isNotEmpty
+                                        ? userModel!.id
+                                        : 'ID bulunamadı',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
                                 ),
                                 Text(
                                   userModel!.name.isNotEmpty
@@ -125,8 +127,14 @@ class _PersonnelPageState extends State<PersonnelPage> {
                               underprofileIcons(FontAwesomeIcons.solidBell,
                                   const PersonnelPage(), false,
                                   context: context),
-                              underprofileIcons(FontAwesomeIcons.signOutAlt,
-                                  const PersonnelPage(), true,
+                              underprofileIcons(
+                                  FontAwesomeIcons.signOutAlt,
+                                  LoginPage(
+                                    loginType: userModel!.role.isNotEmpty
+                                        ? userModel!.role
+                                        : 'rol bulunamadı',
+                                  ),
+                                  true,
                                   context: context),
                             ]),
                       )

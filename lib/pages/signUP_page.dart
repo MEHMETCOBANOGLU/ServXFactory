@@ -24,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String name = '';
+  String userName = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseService _databaseService = DatabaseService();
 
@@ -43,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         // Firestore'a ekle
         final user = UserModel(
           id: userCredential.user!.uid,
-          name: name,
+          name: userName,
           email: email,
           role: widget.loginType, // Admin veya Personnel
         );
@@ -134,6 +134,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                          ),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              prefixIconColor:
+                                  AppTheme.lightTheme.colorScheme.primary,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color:
+                                      AppTheme.lightTheme.colorScheme.primary,
+                                  width: 2,
+                                ),
+                              ),
+                              filled: true,
+                              fillColor:
+                                  AppTheme.lightTheme.colorScheme.onPrimary,
+                              hintText: 'Kullanıcı Adı',
+                              hintStyle: const TextStyle(color: Colors.white60),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color:
+                                      AppTheme.lightTheme.colorScheme.primary,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              userName = value;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Lütfen kullanıcı adınızı giriniz.';
+                              }
+
+                              if (!value.contains(
+                                  RegExp(r'^[a-zA-Z0-9çÇöÖşŞıİğĞüÜ\s]{3,}$'))) {
+                                return 'Kullanıcı adınızı oluşturmak için en az 3 harf gereklidir.';
+                              }
+
+                              return null;
+                            },
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 40, vertical: 20),

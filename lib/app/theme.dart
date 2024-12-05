@@ -29,6 +29,16 @@ class AppTheme extends ChangeNotifier {
             foregroundColor: const Color(0xFF3b368c),
           ),
         ),
+        //set the show snackbar theme
+        snackBarTheme: const SnackBarThemeData(
+          backgroundColor: Color(0xFFf17907),
+          contentTextStyle: TextStyle(color: Colors.white),
+          actionTextColor: Colors.white,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+        ),
       );
 
   static ThemeData get darkTheme => ThemeData(

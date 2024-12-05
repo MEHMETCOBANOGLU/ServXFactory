@@ -34,6 +34,14 @@ class DatabaseService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      print("User reset password failed: $e");
+    }
+  }
+
   // Kullanıcı bilgilerini Firestore'dan çekme
   Future<UserModel?> getUser(String userId) async {
     try {

@@ -53,32 +53,41 @@ class _UserPageState extends State<UserPage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 40.0),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40.0),
                         child: SizedBox(
                           height: 100,
                           width: double.infinity,
                           child: Center(
                             child: Column(
                               children: [
-                                Text(
-                                  "401504",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                Tooltip(
+                                  message: 'Kullanıcı ID',
+                                  child: Text(
+                                    userModel!.id.isNotEmpty
+                                        ? userModel!.id
+                                        : 'ID bulunamadı',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
                                 ),
                                 Text(
-                                  "Mehmet Çobanoğlu",
+                                  userModel!.name.isNotEmpty
+                                      ? userModel!.name
+                                      : 'Ad bulunamadı',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "User",
+                                  userModel!.role.isNotEmpty
+                                      ? userModel!.role
+                                      : 'Rol bulunamadı',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
                               ],
