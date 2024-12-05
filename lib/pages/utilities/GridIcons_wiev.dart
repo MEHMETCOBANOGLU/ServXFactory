@@ -1,3 +1,4 @@
+import 'package:ServXFactory/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/generated/l10n.dart';
@@ -28,7 +29,7 @@ class GridIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(personnelType);
+    print('personnelType: $personnelType');
     return Stack(alignment: Alignment.bottomCenter, children: [
       PageView(
         controller: _pageController,
@@ -99,6 +100,7 @@ class GridIcons extends StatelessWidget {
 
 Column GridPageIcons(
     IconData icon, String text, Widget? route, homePage, context) {
+  print('homePage11: $homePage');
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -187,7 +189,7 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.library_books, 'Dökümanlar', null, homePage, context),
       ];
-    case 'user':
+    case 'User':
       return [
         GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
@@ -203,7 +205,8 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.payment, 'Ödeme Yöntemleri', null, homePage, context),
         GridPageIcons(Icons.help, 'SSS ve Yardım', null, homePage, context),
-        GridPageIcons(Icons.person, 'Profilim', null, homePage, context),
+        GridPageIcons(
+            Icons.person, 'Profilim', ProfilePage(), homePage, context),
       ];
     default:
       return [

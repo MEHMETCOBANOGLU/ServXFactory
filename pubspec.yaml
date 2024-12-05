@@ -39,7 +39,10 @@ dependencies:
   flutter_localization: ^0.2.2
   font_awesome_flutter: ^10.8.0
   google_maps_flutter: ^2.10.0
+  image_picker: ^1.1.2
   intl_utils: ^2.8.7
+  path: ^1.9.0
+  path_provider: ^2.1.5
   provider: ^6.1.2
   rename: ^3.0.2
   shared_preferences: ^2.3.3

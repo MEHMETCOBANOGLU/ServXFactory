@@ -145,7 +145,9 @@ class _UserPageState extends State<UserPage> {
                     context,
                     pageController: _pageController,
                     homePage: false,
-                    personnelType: '',
+                    personnelType: userModel!.role.isNotEmpty
+                        ? userModel!.role
+                        : 'rol bulunamadı',
                   ),
                 ),
               ],

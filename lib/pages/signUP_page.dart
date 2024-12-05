@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           id: userCredential.user!.uid,
           name: userName,
           email: email,
-          role: widget.loginType, // Admin veya Personnel
+          role: widget.loginType, telNo: '', adress: '', // Admin veya Personnel
         );
 
         await _databaseService.addUser(user);
