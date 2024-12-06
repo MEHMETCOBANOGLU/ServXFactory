@@ -154,8 +154,10 @@ Column GridPageIcons(
 List<Widget> _buildPersonnelGridIcons(
     String personnelType, bool homePage, BuildContext context) {
   switch (personnelType) {
-    case 'admin':
+    case 'Admin':
       return [
+        GridPageIcons(
+            Icons.person, 'Profilim', ProfilePage(), homePage, context),
         GridPageIcons(Icons.analytics, 'Raporlar', null, homePage, context),
         GridPageIcons(Icons.precision_manufacturing, 'Makinelerim', null,
             homePage, context),
@@ -168,10 +170,11 @@ List<Widget> _buildPersonnelGridIcons(
             Icons.bar_chart, 'Performans Verileri', null, homePage, context),
         GridPageIcons(
             Icons.inventory, 'Yedek Parça Yönetimi', null, homePage, context),
-        GridPageIcons(Icons.settings, 'Ayarlar', null, homePage, context),
       ];
-    case 'personnel':
+    case 'Personnel':
       return [
+        GridPageIcons(
+            Icons.person, 'Profilim', ProfilePage(), homePage, context),
         GridPageIcons(Icons.task, 'Görevler', null, homePage, context),
         GridPageIcons(
             Icons.chat_bubble_outline, 'Mesajlaşma', null, homePage, context),
@@ -183,8 +186,6 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(Icons.perm_device_information, 'Kişisel Bilgiler', null,
             homePage, context),
         GridPageIcons(
-            Icons.access_time, 'Çalışma Saatleri', null, homePage, context),
-        GridPageIcons(
             Icons.support_agent, 'Destek Talebi', null, homePage, context),
         GridPageIcons(
             Icons.library_books, 'Dökümanlar', null, homePage, context),
@@ -192,6 +193,8 @@ List<Widget> _buildPersonnelGridIcons(
     case 'User':
       return [
         GridPageIcons(
+            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+        GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
         GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları', null,
             homePage, context),
@@ -205,12 +208,12 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.payment, 'Ödeme Yöntemleri', null, homePage, context),
         GridPageIcons(Icons.help, 'SSS ve Yardım', null, homePage, context),
-        GridPageIcons(
-            Icons.person, 'Profilim', ProfilePage(), homePage, context),
       ];
     default:
       return [
         GridPageIcons(
+            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+        GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
         GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları', null,
             homePage, context),
@@ -224,7 +227,6 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.payment, 'Ödeme Yöntemleri', null, homePage, context),
         GridPageIcons(Icons.help, 'SSS ve Yardım', null, homePage, context),
-        GridPageIcons(Icons.person, 'Profilim', null, homePage, context),
       ];
   }
 }

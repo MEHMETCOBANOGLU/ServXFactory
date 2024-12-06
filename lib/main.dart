@@ -1,4 +1,5 @@
 import 'package:ServXFactory/firebase_options.dart';
+import 'package:ServXFactory/services/database_service.dart';
 import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ void main() async {
     builder: (context) => MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
+        ChangeNotifierProvider(create: (context) => DatabaseService()),
       ],
       child: const MyApp(),
     ),

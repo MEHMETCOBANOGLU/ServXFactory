@@ -11,6 +11,7 @@ import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/utilities/GridIcons_wiev.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -55,8 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (_formKey.currentState!.validate()) {
       try {
         if (userModel != null) {
-          print(_imagePath.isEmpty ? userModel!.imageUrl : _imagePath);
-          final user = UserModel(
+          final updatedUser = UserModel(
             id: userModel!.id,
             name: _userNamecontroller.text.isEmpty
                 ? userModel!.name
@@ -71,28 +71,24 @@ class _ProfilePageState extends State<ProfilePage> {
             adress: _addresscontroller.text.isEmpty
                 ? userModel!.adress
                 : _addresscontroller.text,
-            imageUrl: _imagePath.isEmpty ? userModel!.imageUrl : _imagePath,
+            imageUrl: _imagePath.isNotEmpty ? _imagePath : userModel!.imageUrl,
           );
 
-          await _databaseService.updateUser(user);
-
-          setState(() {
-            userModel = user;
-          });
+          await context.read<DatabaseService>().updateUser(updatedUser);
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Bilgileriniz güncellendi.')),
           );
 
-          Navigator.pop(context);
+          Navigator.pop(context); // Güncelleme sonrası geri dön
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Kullanıcı modeli yüklenemedi.')),
           );
         }
-      } on FirebaseAuthException catch (e) {
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Hata: ${e.message}')),
+          SnackBar(content: Text('Hata: ${e.toString()}')),
         );
       }
     }
@@ -133,18 +129,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // print('userModel: $userModel.role');
     return Scaffold(
-      body: userModel ==
-              null // Veriler yüklenene kadar gösterilecek yükleme ekranı
+      // resizeToAvoidBottomInset: true, // Klavye açıldığında içerik yukarı kayar
+
+      body: userModel == null
           ? Center(child: CircularProgressIndicator())
           : Column(
               children: [
+                // Üst bölüm: Profil bilgileri ve fotoğraf
                 Container(
                   color: AppTheme.lightTheme.colorScheme.surface,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
@@ -203,7 +199,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               radius: 65,
                               backgroundImage: _imagePath.isNotEmpty
                                   ? FileImage(File(_imagePath))
-                                  : FileImage(File(userModel!.imageUrl!)),
+                                  : FileImage(
+                                      File(userModel!.imageUrl!),
+                                    ),
                             ),
                           ),
                         ),
@@ -234,17 +232,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
+                // Alt bölüm: Kaydırılabilir Form alanı
                 Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          Expanded(
-                              // TextField'ı genişlemeye uygun hale getiriyoruz
-                              child: Column(children: [
-                            SizedBox(height: 40),
+                  child: SingleChildScrollView(
+                    // physics: const BouncingScrollPhysics(),
+                    child: Container(
+                      color: Colors.white,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
                             _TextField(
                                 userModel!.name.isNotEmpty
                                     ? userModel!.name
@@ -269,13 +267,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                     : 'Adres',
                                 FontAwesomeIcons.addressCard,
                                 _addresscontroller),
-                            // pick photo
+                            // Fotoğraf ekleme butonu
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 40.0, vertical: 10),
                               child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       height: 70,
@@ -287,69 +284,60 @@ class _ProfilePageState extends State<ProfilePage> {
                                             width: 1),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                          onTap: () {
-                                            print('foto');
-                                            _pickImage();
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Icon(
-                                                FontAwesomeIcons.camera,
-                                                size: 30,
-                                                color: AppTheme.lightTheme
-                                                    .colorScheme.primary,
-                                              ),
-                                              Text(
-                                                'Fotograf Ekle',
-                                                style: TextStyle(
-                                                    color: AppTheme.lightTheme
-                                                        .colorScheme.primary,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
+                                      child: InkWell(
+                                        onTap: _pickImage,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              FontAwesomeIcons.camera,
+                                              size: 30,
+                                              color: AppTheme.lightTheme
+                                                  .colorScheme.primary,
+                                            ),
+                                            Text(
+                                              'Fotograf Ekle',
+                                              style: TextStyle(
+                                                  color: AppTheme.lightTheme
+                                                      .colorScheme.primary,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ]),
                             ),
-                          ])),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 10.0, left: 20, right: 20),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  editprofileIcons(
-                                    FontAwesomeIcons.cancel,
-                                    'İptal',
-                                    context: context,
-                                    onTap: () {
-                                      _pop();
-                                    },
-                                  ),
-                                  editprofileIcons(
-                                    FontAwesomeIcons.solidSave,
-                                    'Güncelle',
-                                    context: context,
-                                    onTap: () {
-                                      _updateUserInfo();
-                                    },
-                                  ),
-                                ]),
-                          )
-                        ],
+                            // Güncelle ve İptal butonları
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 10.0, left: 20, right: 20),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    editprofileIcons(
+                                      FontAwesomeIcons.cancel,
+                                      'İptal',
+                                      context: context,
+                                      onTap: _pop,
+                                    ),
+                                    editprofileIcons(
+                                      FontAwesomeIcons.solidSave,
+                                      'Güncelle',
+                                      context: context,
+                                      onTap: _updateUserInfo,
+                                    ),
+                                  ]),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
-              // SizedBox(height: 20),
             ),
     );
   }
@@ -451,7 +439,7 @@ Widget editprofileIcons(icon, String text,
           Center(
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 16),

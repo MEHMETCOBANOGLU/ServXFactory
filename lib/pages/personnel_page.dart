@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ServXFactory/models/userModel.dart';
 import 'package:ServXFactory/pages/Login_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
@@ -7,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/utilities/GridIcons_wiev.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonnelPage extends StatefulWidget {
@@ -26,131 +29,129 @@ class _PersonnelPageState extends State<PersonnelPage> {
   @override
   void initState() {
     super.initState();
-    _getUser();
-  }
-
-  // Kullanıcı verisini çekme işlemi
-  Future<void> _getUser() async {
-    try {
-      userModel = await databaseService.getUser(user.uid);
-      setState(() {}); // Veriler alındığında widget'ı güncelle
-    } catch (e) {
-      print("Error fetching user: $e");
-    }
+    context.read<DatabaseService>().fetchUser(user.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: userModel ==
-              null // Veriler yüklenene kadar gösterilecek yükleme ekranı
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                Container(
-                  color: AppTheme.lightTheme.colorScheme.surface,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
-                        child: SizedBox(
-                          height: 100,
-                          width: double.infinity,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                // null kontrolü ekledik
-                                Tooltip(
-                                  message: 'Kullanıcı ID',
-                                  child: Text(
-                                    userModel!.id.isNotEmpty
-                                        ? userModel!.id
-                                        : 'ID bulunamadı',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                ),
-                                Text(
-                                  userModel!.name.isNotEmpty
-                                      ? userModel!.name
-                                      : 'Ad bulunamadı',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  userModel!.role.isNotEmpty
-                                      ? userModel!.role
-                                      : 'Rol bulunamadı',
+      body: Consumer<DatabaseService>(
+        builder: (context, databaseService, child) {
+          final userModel = databaseService.currentUser;
+
+          if (userModel == null) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          return Column(
+            children: [
+              Container(
+                color: AppTheme.lightTheme.colorScheme.surface,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: SizedBox(
+                        height: 100,
+                        width: double.infinity,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              // null kontrolü ekledik
+                              Tooltip(
+                                message: 'Kullanıcı ID',
+                                child: Text(
+                                  userModel!.id.isNotEmpty
+                                      ? userModel!.id
+                                      : 'ID bulunamadı',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                userModel!.name.isNotEmpty
+                                    ? userModel!.name
+                                    : 'Ad bulunamadı',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                userModel!.role.isNotEmpty
+                                    ? userModel!.role
+                                    : 'Rol bulunamadı',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 20.0,
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 20.0,
+                      ),
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundColor:
+                            AppTheme.lightTheme.colorScheme.primary,
                         child: CircleAvatar(
-                          radius: 70,
-                          backgroundColor:
-                              AppTheme.lightTheme.colorScheme.primary,
-                          child: const CircleAvatar(
-                            radius: 68,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 65,
-                              backgroundImage:
-                                  AssetImage("assets/images/vesikalık.jpg"),
+                          radius: 68,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 65,
+                            backgroundImage: FileImage(
+                              File(userModel!.imageUrl!),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 10.0, left: 20, right: 20),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              underprofileIcons(FontAwesomeIcons.home,
-                                  const HomePage(), false,
-                                  context: context),
-                              underprofileIcons(FontAwesomeIcons.solidBell,
-                                  const PersonnelPage(), false,
-                                  context: context),
-                              underprofileIcons(
-                                  FontAwesomeIcons.signOutAlt,
-                                  LoginPage(
-                                    loginType: userModel!.role.isNotEmpty
-                                        ? userModel!.role
-                                        : 'rol bulunamadı',
-                                  ),
-                                  true,
-                                  context: context),
-                            ]),
-                      )
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 10.0, left: 20, right: 20),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            underprofileIcons(
+                                FontAwesomeIcons.home, const HomePage(), false,
+                                context: context),
+                            underprofileIcons(FontAwesomeIcons.solidBell,
+                                const PersonnelPage(), false,
+                                context: context),
+                            underprofileIcons(
+                                FontAwesomeIcons.signOutAlt,
+                                LoginPage(
+                                  loginType: userModel!.role.isNotEmpty
+                                      ? userModel!.role
+                                      : 'rol bulunamadı',
+                                ),
+                                true,
+                                context: context),
+                          ]),
+                    )
+                  ],
                 ),
-                Expanded(
-                  child: GridIcons(
-                    context,
-                    pageController: _pageController,
-                    homePage: false,
-                    personnelType: 'admin',
-                  ),
+              ),
+              Expanded(
+                child: GridIcons(
+                  context,
+                  pageController: _pageController,
+                  homePage: false,
+                  personnelType: 'Admin',
                 ),
-              ],
-            ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
