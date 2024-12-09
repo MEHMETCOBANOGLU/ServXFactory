@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode _passwordFocusNode = FocusNode();
   List<String> _filteredEmails = [];
   bool _isFocus = false;
+  bool _isPasswordVisible = true; // Password Visiblty
 
   @override
   void initState() {
@@ -288,9 +289,24 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     return null;
                   },
-            obscureText: controller == _passwordController ? true : false,
+
+            obscureText: controller == _passwordController
+                ? _isPasswordVisible
+                : _isPasswordVisible,
             decoration: InputDecoration(
               prefixIcon: Icon(icon),
+              suffixIcon: controller == _passwordController
+                  ? IconButton(
+                      icon: Icon(_isPasswordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    )
+                  : null,
               prefixIconColor: AppTheme.lightTheme.colorScheme.primary,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),

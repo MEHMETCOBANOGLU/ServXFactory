@@ -25,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String password = '';
   String confirmPassword = '';
   String userName = '';
+  bool _isPasswordVisible = true; // Password Visiblty
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseService _databaseService = DatabaseService();
 
@@ -111,21 +112,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 _selectedIndex == 0 ? 'Personnel' : 'Admin';
                           });
                         },
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text('Personel'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text('Yönetici'),
-                          ),
-                        ],
                         borderRadius: BorderRadius.circular(30),
                         selectedColor: Colors.white,
                         color: Colors.blue,
                         fillColor: AppTheme.lightTheme.colorScheme.secondary,
                         borderColor: AppTheme.lightTheme.colorScheme.primary,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text('Personel'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text('Yönetici'),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -134,185 +135,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 40,
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIconColor:
-                                  AppTheme.lightTheme.colorScheme.primary,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  AppTheme.lightTheme.colorScheme.onPrimary,
-                              hintText: 'Kullanıcı Adı',
-                              hintStyle: const TextStyle(color: Colors.white60),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            onChanged: (value) {
-                              userName = value;
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Lütfen kullanıcı adınızı giriniz.';
-                              }
-
-                              if (!value.contains(
-                                  RegExp(r'^[a-zA-Z0-9çÇöÖşŞıİğĞüÜ\s]{3,}$'))) {
-                                return 'Kullanıcı adınızı oluşturmak için en az 3 harf gereklidir.';
-                              }
-
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 20),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIconColor:
-                                  AppTheme.lightTheme.colorScheme.primary,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  AppTheme.lightTheme.colorScheme.onPrimary,
-                              hintText: 'E-posta',
-                              hintStyle: const TextStyle(color: Colors.white60),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              email = value;
-                            },
-                            validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !value.contains('@')) {
-                                return 'Geçerli bir e-posta adresi giriniz.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIconColor:
-                                  AppTheme.lightTheme.colorScheme.primary,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  AppTheme.lightTheme.colorScheme.onPrimary,
-                              hintText: 'Şifre',
-                              hintStyle: const TextStyle(color: Colors.white60),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            obscureText: true,
-                            onChanged: (value) {
-                              password = value;
-                            },
-                            validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  value.length < 8) {
-                                return 'Şifre en az 8 karakter olmalı.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 20),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIconColor:
-                                  AppTheme.lightTheme.colorScheme.primary,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  AppTheme.lightTheme.colorScheme.onPrimary,
-                              hintText: 'Şifre (Tekrar)',
-                              hintStyle: const TextStyle(color: Colors.white60),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color:
-                                      AppTheme.lightTheme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            obscureText: true,
-                            onChanged: (value) {
-                              confirmPassword = value;
-                            },
-                            validator: (value) {
-                              if (value != password) {
-                                return 'Şifreler uyuşmuyor.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
+                        _TextFormField('Kullanıcı Adı'),
+                        _TextFormField('E-posta'),
+                        _TextFormField('Şifre'),
+                        _TextFormField('Şifre (tekrar)'),
                         const SizedBox(height: 20),
                         InkWell(
                           onTap: _register,
-                          // onTap: () {
-                          //   print(widget.loginType);
-                          // },
                           child: Container(
                             width: 120,
                             padding: const EdgeInsets.symmetric(
@@ -361,6 +190,75 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Padding _TextFormField(text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 7,
+        horizontal: 40,
+      ),
+      child: TextFormField(
+        obscureText: text == 'Şifre' || text == 'Şifre (tekrar)'
+            ? _isPasswordVisible
+            : _isPasswordVisible,
+        decoration: InputDecoration(
+          prefixIconColor: AppTheme.lightTheme.colorScheme.primary,
+          suffixIcon: text == 'Şifre' || text == 'Şifre (tekrar)'
+              ? IconButton(
+                  icon: Icon(_isPasswordVisible
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                )
+              : null,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(
+              color: AppTheme.lightTheme.colorScheme.primary,
+              width: 2,
+            ),
+          ),
+          filled: true,
+          fillColor: AppTheme.lightTheme.colorScheme.onPrimary,
+          hintText: text,
+          hintStyle: const TextStyle(color: Colors.white60),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(
+              color: AppTheme.lightTheme.colorScheme.primary,
+              width: 2,
+            ),
+          ),
+        ),
+        onChanged: (value) {
+          userName = value;
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Lütfen kullanıcı adınızı giriniz.';
+          }
+          if (!value.contains(RegExp(r'^[a-zA-Z0-9çÇöÖşŞıİğĞüÜ\s]{3,}$'))) {
+            return 'Kullanıcı adınızı oluşturmak için en az 3 harf gereklidir.';
+          }
+          if (value == null || value.isEmpty || !value.contains('@')) {
+            return 'Geçerli bir e-posta adresi giriniz.';
+          }
+          if (value == null || value.isEmpty || value.length < 8) {
+            return 'Şifre en az 8 karakter olmalı.';
+          }
+          if (value != password) {
+            return 'Şifreler uyuşmuyor.';
+          } else {
+            return null; // Valid input
+          }
+        },
       ),
     );
   }
