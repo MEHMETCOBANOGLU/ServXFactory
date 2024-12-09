@@ -1,6 +1,7 @@
 import 'package:ServXFactory/pages/forgotPass_page.dart';
 import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/signUP_page.dart';
+import 'package:ServXFactory/pages/utilities/languageMenu_wiev.dart';
 import 'package:ServXFactory/services/database_service.dart';
 import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,15 +64,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  final List<Map<String, String>> languages = [
-    {'code': 'TR', 'flag': 'assets/flags/tr.png'},
-    {'code': 'EN', 'flag': 'assets/flags/en.png'},
-    {'code': 'DE', 'flag': 'assets/flags/de.png'},
-    {'code': 'RU', 'flag': 'assets/flags/ru.png'},
-    {'code': 'FR', 'flag': 'assets/flags/fr.png'},
-    {'code': 'ES', 'flag': 'assets/flags/es.png'},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -89,59 +81,12 @@ class _LoginPageState extends State<LoginPage> {
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PopupMenuButton<String>(
-                color: AppTheme.lightTheme.colorScheme.secondary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                offset: const Offset(0, 35),
-                elevation: 10,
-                padding: EdgeInsets.zero,
-                menuPadding: EdgeInsets.zero,
-                constraints: const BoxConstraints(minWidth: 0, maxWidth: 80),
-                onSelected: (String value) {
+              child: LanguageMenu(
+                selectedLanguage: _selectedLanguage,
+                onLanguageSelected: (String value) {
                   setState(() {
                     _selectedLanguage = value;
                   });
-                  context
-                      .read<LocaleProvider>()
-                      .setLocale(Locale(value.toLowerCase()));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      languages.firstWhere(
-                          (lang) => lang['code'] == _selectedLanguage)['flag']!,
-                      width: 24,
-                      height: 24,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      _selectedLanguage,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  ],
-                ),
-                itemBuilder: (BuildContext context) {
-                  return languages.map((lang) {
-                    return PopupMenuItem<String>(
-                      value: lang['code']!,
-                      child: MouseRegion(
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              lang['flag']!,
-                              width: 24,
-                              height: 24,
-                            ),
-                            const SizedBox(width: 10),
-                            Text(lang['code']!),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList();
                 },
               ),
             ),
