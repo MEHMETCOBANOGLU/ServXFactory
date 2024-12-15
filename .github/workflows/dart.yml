@@ -1,0 +1,41 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Repository'yi checkout yap
+      - uses: actions/checkout@v4
+
+      # Flutter SDK'yı kur
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.5" # Buraya kullanmak istediğiniz Flutter versiyonunu yazabilirsiniz.
+
+      # Flutter bağımlılıklarını yükle
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Kod analizini çalıştır
+      - name: Analyze project source
+        run: flutter analyze
+
+      # Testleri çalıştır
+      - name: Run tests
+        run: flutter test
+
+      # GEMINI_API_KEY'i kullan
+      - name: Use GEMINI_API_KEY
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINIAPIKEY }}
+        run: |
+          echo "Using GEMINI_API_KEY: $GEMINI_API_KEY"
+          # flutter run lib/main.dart --api-key=$GEMINI_API_KEY
