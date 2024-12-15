@@ -98,21 +98,21 @@ class _ProductsPageState extends State<ProductsPage> {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white,
             tabs: [
-              const Tooltip(
+              Tooltip(
                 message: "Endüstriyel Parça Yıkama",
                 child: Tab(
                   icon: Icon(Icons.home),
                   text: "Endüstriyel Parça Yıkama",
                 ),
               ),
-              const Tooltip(
+              Tooltip(
                 message: "Taşlama Makineleri",
                 child: Tab(
                   icon: Icon(Icons.info),
                   text: "Taşlama Makineleri",
                 ),
               ),
-              const Tooltip(
+              Tooltip(
                 message: "Test Ekipmanları",
                 child: Tab(
                   icon: Icon(Icons.info),

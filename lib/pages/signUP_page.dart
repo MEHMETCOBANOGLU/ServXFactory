@@ -247,10 +247,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           if (!value.contains(RegExp(r'^[a-zA-Z0-9çÇöÖşŞıİğĞüÜ\s]{3,}$'))) {
             return 'Kullanıcı adınızı oluşturmak için en az 3 harf gereklidir.';
           }
-          if (value == null || value.isEmpty || !value.contains('@')) {
+          if (value.isEmpty || !value.contains('@')) {
             return 'Geçerli bir e-posta adresi giriniz.';
           }
-          if (value == null || value.isEmpty || value.length < 8) {
+          if (value.isEmpty || value.length < 8) {
             return 'Şifre en az 8 karakter olmalı.';
           }
           if (value != password) {

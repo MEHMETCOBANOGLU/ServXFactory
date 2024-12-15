@@ -30,16 +30,21 @@ environment:
 dependencies:
   cloud_firestore: ^5.5.0
   connectivity_plus: ^6.1.0
+  cosmos: ^0.5.0
   cupertino_icons: ^1.0.8
   device_preview: ^1.2.0
+  file_picker: 8.1.2
   firebase_auth: ^5.3.3
   firebase_core: ^3.8.0
   flutter:
     sdk: flutter
   flutter_localization: ^0.2.2
   font_awesome_flutter: ^10.8.0
+  google_fonts: ^6.2.1
+  google_generative_ai: ^0.4.6
   google_maps_flutter: ^2.10.0
   image_picker: ^1.1.2
+  intl: ^0.20.1
   intl_utils: ^2.8.7
   path: ^1.9.0
   path_provider: ^2.1.5

@@ -41,11 +41,11 @@ class _HomePageState extends State<HomePage> {
       final userModel = await _databaseService.getUser(user.uid);
       if (userModel!.role == 'User' && loginType == 'User') {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => UserPage()));
+            context, MaterialPageRoute(builder: (context) => const UserPage()));
       } else if ((userModel.role == 'Personnel' || userModel.role == 'Admin') &&
           (loginType == 'Personnel' || loginType == 'Admin')) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PersonnelPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const PersonnelPage()));
       } else {
         print('buradasın');
         Navigator.push(

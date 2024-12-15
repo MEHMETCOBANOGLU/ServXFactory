@@ -18,10 +18,10 @@ class LanguageMenu extends StatelessWidget {
   ];
 
   LanguageMenu({
-    Key? key,
+    super.key,
     required this.selectedLanguage,
     required this.onLanguageSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

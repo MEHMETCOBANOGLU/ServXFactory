@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // resizeToAvoidBottomInset: true, // Klavye açıldığında içerik yukarı kayar
 
       body: userModel == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
                 // Üst bölüm: Profil bilgileri ve fotoğraf
@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             _TextField(
                                 userModel!.name.isNotEmpty
                                     ? userModel!.name

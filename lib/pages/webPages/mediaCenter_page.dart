@@ -75,14 +75,14 @@ class _MediaCenterPageState extends State<MediaCenterPage> {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white,
             tabs: [
-              const Tooltip(
+              Tooltip(
                 message: "Foto Galeri",
                 child: Tab(
                   icon: Icon(Icons.home),
                   text: "Foto Galeri",
                 ),
               ),
-              const Tooltip(
+              Tooltip(
                 message: "Video Galeri",
                 child: Tab(
                   icon: Icon(Icons.info),

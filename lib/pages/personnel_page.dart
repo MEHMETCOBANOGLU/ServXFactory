@@ -40,7 +40,7 @@ class _PersonnelPageState extends State<PersonnelPage> {
           final userModel = databaseService.currentUser;
 
           if (userModel == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return Column(
@@ -63,30 +63,30 @@ class _PersonnelPageState extends State<PersonnelPage> {
                               Tooltip(
                                 message: 'Kullanıcı ID',
                                 child: Text(
-                                  userModel!.id.isNotEmpty
-                                      ? userModel!.id
+                                  userModel.id.isNotEmpty
+                                      ? userModel.id
                                       : 'ID bulunamadı',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
                               ),
                               Text(
-                                userModel!.name.isNotEmpty
-                                    ? userModel!.name
+                                userModel.name.isNotEmpty
+                                    ? userModel.name
                                     : 'Ad bulunamadı',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                userModel!.role.isNotEmpty
-                                    ? userModel!.role
+                                userModel.role.isNotEmpty
+                                    ? userModel.role
                                     : 'Rol bulunamadı',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
                             ],
@@ -108,7 +108,7 @@ class _PersonnelPageState extends State<PersonnelPage> {
                           child: CircleAvatar(
                             radius: 65,
                             backgroundImage: FileImage(
-                              File(userModel!.imageUrl!),
+                              File(userModel.imageUrl!),
                             ),
                           ),
                         ),
@@ -129,8 +129,8 @@ class _PersonnelPageState extends State<PersonnelPage> {
                             underprofileIcons(
                                 FontAwesomeIcons.signOutAlt,
                                 LoginPage(
-                                  loginType: userModel!.role.isNotEmpty
-                                      ? userModel!.role
+                                  loginType: userModel.role.isNotEmpty
+                                      ? userModel.role
                                       : 'rol bulunamadı',
                                 ),
                                 true,

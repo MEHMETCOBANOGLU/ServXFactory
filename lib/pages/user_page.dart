@@ -39,7 +39,7 @@ class _UserPageState extends State<UserPage> {
           final userModel = databaseService.currentUser;
 
           if (userModel == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return Column(
@@ -61,8 +61,8 @@ class _UserPageState extends State<UserPage> {
                               Tooltip(
                                 message: 'Kullanıcı ID',
                                 child: Text(
-                                  userModel!.id.isNotEmpty
-                                      ? userModel!.id
+                                  userModel.id.isNotEmpty
+                                      ? userModel.id
                                       : 'ID bulunamadı',
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
@@ -70,8 +70,8 @@ class _UserPageState extends State<UserPage> {
                                 ),
                               ),
                               Text(
-                                userModel!.name.isNotEmpty
-                                    ? userModel!.name
+                                userModel.name.isNotEmpty
+                                    ? userModel.name
                                     : 'Ad bulunamadı',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -80,8 +80,8 @@ class _UserPageState extends State<UserPage> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                userModel!.role.isNotEmpty
-                                    ? userModel!.role
+                                userModel.role.isNotEmpty
+                                    ? userModel.role
                                     : 'Rol bulunamadı',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -106,7 +106,7 @@ class _UserPageState extends State<UserPage> {
                           child: CircleAvatar(
                             radius: 65,
                             backgroundImage: FileImage(
-                              File(userModel!.imageUrl!),
+                              File(userModel.imageUrl!),
                             ),
                           ),
                         ),
@@ -127,8 +127,8 @@ class _UserPageState extends State<UserPage> {
                             underprofileIcons(
                                 FontAwesomeIcons.signOutAlt,
                                 LoginPage(
-                                  loginType: userModel!.role.isNotEmpty
-                                      ? userModel!.role
+                                  loginType: userModel.role.isNotEmpty
+                                      ? userModel.role
                                       : 'rol bulunamadı',
                                 ),
                                 true,
@@ -143,8 +143,8 @@ class _UserPageState extends State<UserPage> {
                   context,
                   pageController: _pageController,
                   homePage: false,
-                  personnelType: userModel!.role.isNotEmpty
-                      ? userModel!.role
+                  personnelType: userModel.role.isNotEmpty
+                      ? userModel.role
                       : 'rol bulunamadı',
                 ),
               ),

@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         // Kullanıcı geri tuşuna veya kaydırma hareketine bastığında çalışacak
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
         return false; // Varsayılan geri navigasyonu engelle
       },
@@ -277,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
               _filteredEmails.isNotEmpty &&
               controller == _emailcontroller)
             Container(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
@@ -344,30 +344,35 @@ Widget AccountLoginCard(
 
                 print(loginType);
                 if (loginType == 'User' && userModel.role == 'User') {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserPage()));
                 } else if ((loginType == 'Personnel' || loginType == 'Admin') &&
                     (userModel.role == 'Personnel' ||
                         userModel.role == 'Admin')) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PersonnelPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonnelPage()));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                         content: Text(
                             'Lütfen kullanıcı giriş sayfasından giriş yapınız. Personel ve Yönetici yetkilileri bu sayfadan giriş yapabilir.')),
                   );
                 }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                       content: Text('Lütfen e-posta adresinizi doğrulayın.')),
                 );
               }
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Lütfen e-posta adresinizi doğrulayın.')),
+              const SnackBar(
+                  content: Text('Lütfen e-posta adresinizi doğrulayın.')),
             );
           }
         } on FirebaseAuthException catch (e) {

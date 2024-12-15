@@ -14,6 +14,8 @@ import 'package:ServXFactory/pages/webPages/products_page.dart';
 import 'package:ServXFactory/pages/webPages/references_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../digitalAssistan_page.dart';
+
 class GridIcons extends StatelessWidget {
   const GridIcons(
     BuildContext context, {
@@ -42,24 +44,24 @@ class GridIcons extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             children: [
               if (homePage == true) ...[
-                GridPageIcons(Icons.info, S.of(context).AboutUs, AboutUsPage(),
-                    homePage, context),
+                GridPageIcons(Icons.info, S.of(context).AboutUs,
+                    const AboutUsPage(), homePage, context),
                 GridPageIcons(Icons.slideshow, S.of(context).IntroductionVideo,
                     const IntroVideoPage(), homePage, context),
                 GridPageIcons(Icons.shopping_bag, S.of(context).Products,
-                    ProductsPage(), homePage, context),
+                    const ProductsPage(), homePage, context),
                 GridPageIcons(Icons.support, S.of(context).ErrorSupportSystem,
                     null, homePage, context),
                 GridPageIcons(Icons.new_releases, S.of(context).LatestUpdates,
-                    LatestUpdatesPages(), homePage, context),
+                    const LatestUpdatesPages(), homePage, context),
                 GridPageIcons(Icons.video_library, S.of(context).MediaCenter,
-                    MediaCenterPage(), homePage, context),
-                GridPageIcons(Icons.article, S.of(context).Blogs, BlogsPage(),
-                    homePage, context),
+                    const MediaCenterPage(), homePage, context),
+                GridPageIcons(Icons.article, S.of(context).Blogs,
+                    const BlogsPage(), homePage, context),
                 GridPageIcons(Icons.thumb_up, S.of(context).References,
-                    ReferencesPage(), homePage, context),
+                    const ReferencesPage(), homePage, context),
                 GridPageIcons(Icons.contact_mail, S.of(context).Contact,
-                    ContactPage(), homePage, context),
+                    const ContactPage(), homePage, context),
               ] else
                 ..._buildPersonnelGridIcons(personnelType, homePage, context),
             ],
@@ -73,8 +75,8 @@ class GridIcons extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               children: [
                 if (homePage == true)
-                  GridPageIcons(Icons.map, S.of(context).KspMap, MapPage(),
-                      homePage, context),
+                  GridPageIcons(Icons.map, S.of(context).KspMap,
+                      const MapPage(), homePage, context),
               ],
             ),
         ],
@@ -157,7 +159,7 @@ List<Widget> _buildPersonnelGridIcons(
     case 'Admin':
       return [
         GridPageIcons(
-            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+            Icons.person, 'Profilim', const ProfilePage(), homePage, context),
         GridPageIcons(Icons.analytics, 'Raporlar', null, homePage, context),
         GridPageIcons(Icons.precision_manufacturing, 'Makinelerim', null,
             homePage, context),
@@ -174,7 +176,7 @@ List<Widget> _buildPersonnelGridIcons(
     case 'Personnel':
       return [
         GridPageIcons(
-            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+            Icons.person, 'Profilim', const ProfilePage(), homePage, context),
         GridPageIcons(Icons.task, 'Görevler', null, homePage, context),
         GridPageIcons(
             Icons.chat_bubble_outline, 'Mesajlaşma', null, homePage, context),
@@ -193,11 +195,11 @@ List<Widget> _buildPersonnelGridIcons(
     case 'User':
       return [
         GridPageIcons(
-            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+            Icons.person, 'Profilim', const ProfilePage(), homePage, context),
         GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
-        GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları', null,
-            homePage, context),
+        GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları',
+            const DigitalAssistan(), homePage, context),
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),
@@ -212,11 +214,11 @@ List<Widget> _buildPersonnelGridIcons(
     default:
       return [
         GridPageIcons(
-            Icons.person, 'Profilim', ProfilePage(), homePage, context),
+            Icons.person, 'Profilim', const ProfilePage(), homePage, context),
         GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
-        GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları', null,
-            homePage, context),
+        GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları',
+            const DigitalAssistan(), homePage, context),
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),
