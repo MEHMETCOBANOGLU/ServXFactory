@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ServXFactory/firebase_options.dart';
 import 'package:ServXFactory/generated/intl/messages_all.dart';
 import 'package:ServXFactory/services/database_service.dart';
@@ -17,6 +19,15 @@ import 'pages/homePage.dart';
 import 'package:device_preview/device_preview.dart';
 
 void main() async {
+  String? geminiApiKey = Platform.environment['GEMINI_API_KEY'];
+  if (geminiApiKey == null) {
+    print("Error: GEMINI_API_KEY is not set.");
+    return;
+  }
+
+  print("Using GEMINI API Key: $geminiApiKey");
+  // Burada API anahtarı ile ilgili işlemlerinizi gerçekleştirin
+
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('tr', null);
 
