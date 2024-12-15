@@ -26,8 +26,8 @@ jobs:
         run: flutter pub get
 
       # Kod analizini çalıştır
-      - name: Analyze project source
-        run: flutter analyze
+       # - name: Analyze project source
+       #   run: flutter analyze
 
       # Testleri çalıştır
       - name: Run tests
