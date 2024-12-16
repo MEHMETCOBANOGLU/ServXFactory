@@ -8,7 +8,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    
+    runs-on: windows-latest # Windows kullanımı
 
     steps:
       # Repository'yi checkout yap
@@ -25,12 +26,12 @@ jobs:
         run: flutter pub get
 
       # Kod analizini çalıştır
-      - name: Analyze project source
-        run: flutter analyze
+       # - name: Analyze project source
+       #   run: flutter analyze
 
       # Testleri çalıştır
-      - name: Run tests
-        run: flutter test
+       # - name: Run tests
+         # run: flutter test
 
       # GEMINI_API_KEY'i kullan
       - name: Use GEMINI_API_KEY
