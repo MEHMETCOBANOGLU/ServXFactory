@@ -203,8 +203,8 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),
-        GridPageIcons(
-            Icons.star, 'Değerlendirmelerim', null, homePage, context),
+        GridPageIcons(Icons.android, 'Dijital Assistan',
+            const DigitalAssistan(), homePage, context),
         GridPageIcons(
             Icons.notifications, 'Bildirimler', null, homePage, context),
         GridPageIcons(
@@ -222,8 +222,8 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),
-        GridPageIcons(
-            Icons.star, 'Değerlendirmelerim', null, homePage, context),
+        GridPageIcons(Icons.android, 'Dijital Assistan',
+            const DigitalAssistan(), homePage, context),
         GridPageIcons(
             Icons.notifications, 'Bildirimler', null, homePage, context),
         GridPageIcons(

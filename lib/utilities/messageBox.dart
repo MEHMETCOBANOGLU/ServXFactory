@@ -1,5 +1,6 @@
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/utilities/textbox.dart';
+import 'package:ServXFactory/utilities/typingAnimation.dart';
 import 'package:cosmos/cosmos.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,12 +9,14 @@ class MessageBox extends StatelessWidget {
   final bool isDigitalAssistan;
   final String message;
   final String timestamp;
+  final bool isLoading; // Yükleniyor durumu
 
   const MessageBox({
     super.key,
     required this.isDigitalAssistan,
     required this.message,
     required this.timestamp,
+    this.isLoading = false, // Varsayılan olarak false
   });
 
   @override
@@ -30,7 +33,7 @@ class MessageBox extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           width: width(context) * 0.6,
           decoration: BoxDecoration(
-            color: AppTheme.lightTheme.colorScheme.surface,
+            color: AppTheme.lightTheme.colorScheme.onPrimary,
             borderRadius: BorderRadius.circular(10),
           ),
           child:
@@ -38,14 +41,17 @@ class MessageBox extends StatelessWidget {
             Text(
               'Raya',
               style: GoogleFonts.dmSans(
-                  fontWeight: FontWeight.w700,
-                  color: AppTheme.lightTheme.colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.lightTheme.colorScheme.tertiary,
                   fontSize: 14),
             ),
-            Text(
-              message,
-              style: GoogleFonts.dmSans(color: Colors.white, fontSize: 12),
-            ),
+            isLoading
+                ? const TypingAnimation() // Animasyonlu üç nokta
+                : Text(
+                    message,
+                    style:
+                        GoogleFonts.dmSans(color: Colors.white, fontSize: 12),
+                  ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -70,7 +76,7 @@ class MessageBox extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           width: width(context) * 0.6,
           decoration: BoxDecoration(
-            color: AppTheme.lightTheme.colorScheme.surface,
+            color: AppTheme.lightTheme.colorScheme.onPrimary,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -79,8 +85,8 @@ class MessageBox extends StatelessWidget {
               Text(
                 'Siz',
                 style: GoogleFonts.dmSans(
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.lightTheme.colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.lightTheme.colorScheme.tertiary,
                     fontSize: 14),
               ),
               Text(

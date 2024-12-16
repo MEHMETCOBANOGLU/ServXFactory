@@ -235,9 +235,8 @@ class _LoginPageState extends State<LoginPage> {
                     return null;
                   },
 
-            obscureText: controller == _passwordController
-                ? _isPasswordVisible
-                : _isPasswordVisible,
+            obscureText:
+                controller == _passwordController ? _isPasswordVisible : false,
             decoration: InputDecoration(
               prefixIcon: Icon(icon),
               suffixIcon: controller == _passwordController

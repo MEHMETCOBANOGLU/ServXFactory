@@ -44,11 +44,14 @@ class _TextBoxBottomState extends State<TextBoxBottom> {
               focusNode: focusNode,
               controller: messageController,
               style: GoogleFonts.dmSans(
-                  color: Colors.white.withOpacity(0.8), fontSize: 13),
+                  color: AppTheme.lightTheme.colorScheme.surface, fontSize: 13),
               decoration: InputDecoration(
+                fillColor: AppTheme.lightTheme.colorScheme.onSecondary,
+                filled: true,
                 hintText: "Bir mesaj yazın...",
                 hintStyle: GoogleFonts.dmSans(
-                    color: Colors.white.withOpacity(0.8), fontSize: 13),
+                    color: AppTheme.lightTheme.colorScheme.surface,
+                    fontSize: 13),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(1020),
                   borderSide: BorderSide(
@@ -90,6 +93,7 @@ class _TextBoxBottomState extends State<TextBoxBottom> {
                 return Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
+                      color: AppTheme.lightTheme.colorScheme.onSecondary,
                       border: Border.all(
                         color: isFocus.value
                             ? AppTheme.lightTheme.colorScheme.primary

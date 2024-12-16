@@ -19,15 +19,6 @@ import 'pages/homePage.dart';
 import 'package:device_preview/device_preview.dart';
 
 void main() async {
-  String? geminiApiKey = Platform.environment['GEMINI_API_KEY'];
-  if (geminiApiKey == null) {
-    print("Error: GEMINI_API_KEY is not set.");
-    return;
-  }
-
-  print("Using GEMINI API Key: $geminiApiKey");
-  // Burada API anahtarı ile ilgili işlemlerinizi gerçekleştirin
-
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('tr', null);
 
@@ -80,8 +71,8 @@ class _MyAppState extends State<MyApp> {
         locale: value.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        // home: const HomePage(),
-        home: const DigitalAssistan(),
+        home: const HomePage(),
+        // home: const DigitalAssistan(),
       );
     });
   }

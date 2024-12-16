@@ -16,7 +16,9 @@ class AppTheme extends ChangeNotifier {
         colorScheme: const ColorScheme.light(
           primary: Color(0xFF3b368c),
           secondary: Color(0xFFf17907), //f17907
-          tertiary: Color(0xFFFDF6EF),
+          onSecondary: Color.fromARGB(255, 236, 236, 236),
+          tertiary: Color.fromARGB(255, 255, 255, 255),
+
           surface: Color(0xFF262554), //6358f6
           onPrimary: Color.fromARGB(255, 89, 88, 155), //6358f6
           // surface: Color(0xFF3b368c),
