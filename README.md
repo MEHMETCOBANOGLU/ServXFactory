@@ -38,6 +38,28 @@ This project is a **Flutter-based mobile application** designed to provide an in
         <strong>Products Page</strong><br>
         <img src="https://github.com/user-attachments/assets/53c7dcf3-8c0f-4956-a0fb-2eba53a3558b" alt="Products Page" width="200">
       </td>
+            <td align="center">
+        <strong>Menu Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/fa563158-658f-4dd1-92e1-65896fadfd76" alt="Menu Page" width="200">
+      </td>
+    </tr>
+        <tr>
+      <td align="center">
+        <strong>Digital Assistan Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/0b17b33a-3b58-4f70-b461-bd76b56f2717" alt="Digital Assistan" width="200">
+      </td>
+      <td align="center">
+        <strong>Digital Assista Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/b851f9e3-921b-41e2-9432-5d14db9f6b16" alt="Digital Assistan Page" width="200">
+      </td>
+      <td align="center">
+        <strong> Page</strong><br>
+        <img src="" alt=" Page" width="200">
+      </td>
+            <td align="center">
+        <strong> Page</strong><br>
+        <img src="" alt=" Page" width="200">
+      </td>
     </tr>
     <tr>
     </tr>
