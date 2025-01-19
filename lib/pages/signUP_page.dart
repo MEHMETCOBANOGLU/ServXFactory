@@ -2,10 +2,8 @@ import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/models/userModel.dart';
 import 'package:ServXFactory/pages/Login_page.dart';
 import 'package:ServXFactory/services/database_service.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ServXFactory/app/theme.dart';
 
 class SignUpScreen extends StatefulWidget {
   late String loginType;
@@ -46,7 +44,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
           id: userCredential.user!.uid,
           name: userName,
           email: email,
-          role: widget.loginType, telNo: '', adress: '', // Admin veya Personnel
+          role: widget.loginType, phoneNumber: '',
+          adress: '', // Admin veya Personnel
+          imageUrl: '',
+          image: '',
+          token: '',
+          aboutMe: '',
+          lastSeen: '',
+          createdAt: '',
+          isOnline: true,
+          friendsUIDs: [],
+          friendRequestsUIDs: [],
+          sentFriendRequestsUIDs: [],
         );
 
         await _databaseService.addUser(user);

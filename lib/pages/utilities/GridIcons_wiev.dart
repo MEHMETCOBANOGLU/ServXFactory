@@ -1,8 +1,8 @@
+import 'package:ServXFactory/pages/chatPages/main_screen/authentication/landing_screen.dart';
 import 'package:ServXFactory/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/generated/l10n.dart';
-import 'package:ServXFactory/pages/homePage.dart';
 import 'package:ServXFactory/pages/webPages/LatestUpdates_page.dart';
 import 'package:ServXFactory/pages/webPages/aboutUs_page.dart';
 import 'package:ServXFactory/pages/webPages/blogs_page.dart';
@@ -199,7 +199,7 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
         GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları',
-            const DigitalAssistan(), homePage, context),
+            const LandingScreen(), homePage, context),
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),
@@ -218,7 +218,7 @@ List<Widget> _buildPersonnelGridIcons(
         GridPageIcons(
             Icons.work_outline, 'Hizmetlerim', null, homePage, context),
         GridPageIcons(Icons.chat_bubble_outline, 'Destek Mesajları',
-            const DigitalAssistan(), homePage, context),
+            const LandingScreen(), homePage, context),
         GridPageIcons(Icons.school, 'Eğitimler', null, homePage, context),
         GridPageIcons(
             Icons.shopping_cart, 'Siparişlerim', null, homePage, context),

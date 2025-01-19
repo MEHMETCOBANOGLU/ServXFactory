@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:ServXFactory/firebase_options.dart';
-import 'package:ServXFactory/generated/intl/messages_all.dart';
+import 'package:ServXFactory/pages/chatPages/main_screen/providers/authentication_provider.dart';
+import 'package:ServXFactory/pages/chatPages/main_screen/providers/chat_provider.dart';
+import 'package:ServXFactory/pages/chatPages/main_screen/providers/group_provider.dart';
 import 'package:ServXFactory/services/database_service.dart';
-import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ServXFactory/providers/locale_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app/theme.dart';
-import 'pages/digitalAssistan_page.dart';
 import 'pages/homePage.dart';
 import 'package:device_preview/device_preview.dart';
 
@@ -32,6 +30,9 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
         ChangeNotifierProvider(create: (context) => DatabaseService()),
+        ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => GroupProvider()),
       ],
       child: const MyApp(),
     ),

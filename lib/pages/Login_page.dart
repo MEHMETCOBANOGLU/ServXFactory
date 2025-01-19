@@ -7,13 +7,9 @@ import 'package:ServXFactory/utilities/%C4%B1nputWithSuggestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:ServXFactory/app/theme.dart';
-import 'package:ServXFactory/generated/l10n.dart';
 import 'package:ServXFactory/pages/personnel_page.dart';
 import 'package:ServXFactory/pages/user_page.dart';
-import 'package:ServXFactory/providers/locale_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {

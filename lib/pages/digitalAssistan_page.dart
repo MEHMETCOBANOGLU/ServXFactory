@@ -4,10 +4,8 @@ import 'package:ServXFactory/controller/scrollcontroller.dart';
 import 'package:ServXFactory/controller/textediting.dart';
 import 'package:ServXFactory/controller/value.dart';
 import 'package:ServXFactory/services/ai.dart';
-import 'package:ServXFactory/utilities/messageBox.dart';
 import 'package:ServXFactory/utilities/textbox.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cosmos/cosmos.dart';
 
 class DigitalAssistan extends StatefulWidget {
   const DigitalAssistan({super.key});
@@ -29,7 +27,7 @@ class _DigitalAssistanState extends State<DigitalAssistan> {
   final List<Map<String, String>> options = [
     {
       'title': 'Uygulama Özellikleri Hakkında Bilgi Almak',
-      'response': 'Uygulama Özellikleri Hakkında Bilgi Almak...'
+      'response': 'Uygulama özellikleri hakkında bilgi almak istiyorum.'
     },
     {
       'title': 'Teknik Destek ve Sorun Giderme',
@@ -160,7 +158,7 @@ class _DigitalAssistanState extends State<DigitalAssistan> {
               // width: width(context) * 0.97,
               decoration: BoxDecoration(
                   color: AppTheme.lightTheme.colorScheme.surface,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10),
                   ),
@@ -168,11 +166,11 @@ class _DigitalAssistanState extends State<DigitalAssistan> {
                     BoxShadow(
                       color: AppTheme.lightTheme.colorScheme.onSecondary,
                       blurRadius: 20,
-                      offset: Offset(10, 6),
+                      offset: const Offset(10, 6),
                       spreadRadius: 8,
                     ),
                   ]),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Text(

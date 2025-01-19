@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:ServXFactory/models/userModel.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ServXFactory/app/theme.dart';
 import 'package:ServXFactory/pages/homePage.dart';
-import 'package:ServXFactory/pages/utilities/GridIcons_wiev.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,13 +63,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 ? userModel!.email
                 : _emailcontroller.text,
             role: userModel!.role,
-            telNo: _phonecontroller.text.isEmpty
-                ? userModel!.telNo
+            phoneNumber: _phonecontroller.text.isEmpty
+                ? userModel!.phoneNumber
                 : _phonecontroller.text,
             adress: _addresscontroller.text.isEmpty
                 ? userModel!.adress
                 : _addresscontroller.text,
             imageUrl: _imagePath.isNotEmpty ? _imagePath : userModel!.imageUrl,
+            image: userModel!.image,
+            token: userModel!.token,
+            aboutMe: userModel!.aboutMe,
+            lastSeen: userModel!.lastSeen,
+            createdAt: userModel!.createdAt,
+            isOnline: userModel!.isOnline,
+            friendsUIDs: userModel!.friendsUIDs,
+            friendRequestsUIDs: userModel!.friendRequestsUIDs,
+            sentFriendRequestsUIDs: userModel!.sentFriendRequestsUIDs,
           );
 
           await context.read<DatabaseService>().updateUser(updatedUser);
@@ -199,9 +206,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               radius: 65,
                               backgroundImage: _imagePath.isNotEmpty
                                   ? FileImage(File(_imagePath))
-                                  : FileImage(
-                                      File(userModel!.imageUrl!),
-                                    ),
+                                  : userModel!.imageUrl!.isNotEmpty
+                                      ? FileImage(File(userModel!.imageUrl!))
+                                      : const AssetImage(
+                                          'assets/images/user_icon.png'),
                             ),
                           ),
                         ),
@@ -256,8 +264,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 FontAwesomeIcons.envelope,
                                 _emailcontroller),
                             _TextField(
-                                userModel!.telNo.isNotEmpty
-                                    ? userModel!.telNo
+                                userModel!.phoneNumber.isNotEmpty
+                                    ? userModel!.phoneNumber
                                     : 'Telefon',
                                 FontAwesomeIcons.phone,
                                 _phonecontroller),

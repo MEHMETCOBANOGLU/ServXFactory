@@ -107,9 +107,10 @@ class _PersonnelPageState extends State<PersonnelPage> {
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
                             radius: 65,
-                            backgroundImage: FileImage(
-                              File(userModel.imageUrl!),
-                            ),
+                            backgroundImage: userModel.imageUrl!.isNotEmpty
+                                ? FileImage(File(userModel.imageUrl!))
+                                : const AssetImage(
+                                    'assets/images/user_icon.png'),
                           ),
                         ),
                       ),
