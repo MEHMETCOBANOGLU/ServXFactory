@@ -9,6 +9,16 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This permission is to acces your mic to record audio</string>
 
+
+
+	<key>NSMicrophoneUsageDescription</key>
+<string>Microphone access is needed for calls.</string>
+<key>NSCameraUsageDescription</key>
+<string>Camera access is needed for video calls.</string>
+
+
+
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
