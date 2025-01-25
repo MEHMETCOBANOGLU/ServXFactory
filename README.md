@@ -10,40 +10,44 @@ This project is a **Flutter-based mobile application** designed to provide an in
     <tr>
       <td align="center">
         <strong>Home Screen (Turkish)</strong><br>
-        <img src="https://github.com/user-attachments/assets/2770141d-156d-42e1-b435-3a6b4909e670" alt="Home Screen Turkish" width="200">
+        <img src="https://github.com/user-attachments/assets/3fcc3f3d-2613-499b-b25b-df25cd432efa" alt="Home Screen Turkish" width="200">
       </td>
       <td align="center">
         <strong>Language Selector</strong><br>
-        <img src="https://github.com/user-attachments/assets/3e5cd6b9-32a4-4b5f-863c-0c1fbf9c8fac" alt="Language Selector" width="200">
+        <img src="https://github.com/user-attachments/assets/b3ac856b-096d-49ff-9abe-8ab520db3e09" alt="Language Selector" width="200">
       </td>
       <td align="center">
         <strong>Home Screen (English)</strong><br>
-        <img src="https://github.com/user-attachments/assets/2b945bdd-e626-4872-a5a8-f061cf814c06" alt="Home Screen English" width="200">
+        <img src="https://github.com/user-attachments/assets/ffa97a99-049e-4348-b4bf-cd3e96b28ae7" alt="Home Screen English" width="200">
       </td>
-      <td align="center">
-        <strong>Login Screen</strong><br>
-        <img src="https://github.com/user-attachments/assets/32a45225-1271-4ff6-ab2a-2407a921d4f3" alt="Login Screen" width="200">
+            <td align="center">
+        <strong>About Us Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/164a5bc4-94e6-485a-b8f5-91755e17a23a" alt="About Us Page" width="200">
       </td>
     </tr>
     <tr>
+            <td align="center">
+        <strong>Products Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/ca347c9a-bde1-4fdb-9814-b860f8c58030" alt="Products Page" width="200">
+      </td>
+            <td align="center">
+        <strong>Login Screen</strong><br>
+        <img src="https://github.com/user-attachments/assets/8a1ee21f-2990-4154-b315-3547fd6c6f1b" alt="Login Screen" width="200">
+      </td>
       <td align="center">
         <strong>Personnel Dashboard</strong><br>
         <img src="https://github.com/user-attachments/assets/7f2491df-dd13-4504-996b-b68616405b7d" alt="Personnel Dashboard" width="200">
       </td>
-      <td align="center">
-        <strong>About Us Page</strong><br>
-        <img src="https://github.com/user-attachments/assets/0dc15a05-3d58-4169-ac41-b0dcfb8fc69f" alt="About Us Page" width="200">
-      </td>
-      <td align="center">
-        <strong>Products Page</strong><br>
-        <img src="https://github.com/user-attachments/assets/53c7dcf3-8c0f-4956-a0fb-2eba53a3558b" alt="Products Page" width="200">
-      </td>
             <td align="center">
-        <strong>Menu Page</strong><br>
-        <img src="https://github.com/user-attachments/assets/fa563158-658f-4dd1-92e1-65896fadfd76" alt="Menu Page" width="200">
+        <strong>User Dashboard</strong><br>
+        <img src="https://github.com/user-attachments/assets/7c543cb7-401c-4496-84a8-8c1450f6c3ec" alt="User Dashboard" width="200">
       </td>
     </tr>
         <tr>
+                      <td align="center">
+        <strong>Menu Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/e4888f0c-68e3-4413-b8f9-4e0a07ef7909" alt="Menu Page" width="200">
+      </td>
       <td align="center">
         <strong>Digital Assistan Page</strong><br>
         <img src="https://github.com/user-attachments/assets/0b17b33a-3b58-4f70-b461-bd76b56f2717" alt="Digital Assistan" width="200">
@@ -52,17 +56,29 @@ This project is a **Flutter-based mobile application** designed to provide an in
         <strong>Digital Assista Page</strong><br>
         <img src="https://github.com/user-attachments/assets/b851f9e3-921b-41e2-9432-5d14db9f6b16" alt="Digital Assistan Page" width="200">
       </td>
-      <td align="center">
-        <strong> Page</strong><br>
-        <img src="" alt=" Page" width="200">
-      </td>
             <td align="center">
-        <strong> Page</strong><br>
-        <img src="" alt=" Page" width="200">
+        <strong>KSP Chat Page</strong><br>
+        <img src="https://github.com/user-attachments/assets/e538ea11-f83d-41f6-8543-abdf6dc6128d" alt="KSP Chat Page" width="200">
       </td>
     </tr>
     <tr>
-    </tr>
+  <td align="center">
+    <strong>Group Chat Page</strong><br>
+    <img src="https://github.com/user-attachments/assets/f59a9974-d77a-4caf-bb37-970bcce9b9b6" alt="Group Chat Page" width="200">
+  </td>
+  <td align="center">
+    <strong>Contacts Page</strong><br>
+    <img src="https://github.com/user-attachments/assets/8f7e784a-8b1d-4f6a-aa00-f45fba493c65" alt="Contacts Page" width="200">
+  </td>
+  <td align="center">
+    <strong>Chat Page</strong><br>
+    <img src="https://github.com/user-attachments/assets/07024aa8-e873-42ed-bfaa-7c9d45eadd2d" alt="Chat Page" width="200">
+  </td>
+  <td align="center">
+    <strong>Video Call Page</strong><br>
+    <img src="https://github.com/user-attachments/assets/bc63a926-0568-4f72-81c4-1598d86b613b" alt="Video Call Page" width="200">
+  </td>
+</tr>
   </table>
 </div>
 
